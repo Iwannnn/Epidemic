@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.illness.mapper.EpidemicPassageMapper">
+    
+    <resultMap type="EpidemicPassage" id="EpidemicPassageResult">
+        <result property="passageId"    column="passage_id"    />
+        <result property="title"    column="title"    />
+        <result property="author"    column="author"    />
+        <result property="contentId"    column="content_id"    />
+        <result property="type"    column="type"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEpidemicPassageVo">
+        select passage_id, title, author, content_id, type, is_delete, create_time, create_by, update_time, update_by, remark from epidemic_passage
+    </sql>
+
+    <select id="selectEpidemicPassageList" parameterType="EpidemicPassage" resultMap="EpidemicPassageResult">
+        <include refid="selectEpidemicPassageVo"/>
+        <where>  
+            <if test="passageId != null "> and passage_id = #{passageId}</if>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="author != null  and author != ''"> and author = #{author}</if>
+            <if test="contentId != null "> and content_id = #{contentId}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicPassageByPassageId" parameterType="Long" resultMap="EpidemicPassageResult">
+        <include refid="selectEpidemicPassageVo"/>
+        where passage_id = #{passageId}
+    </select>
+        
+    <insert id="insertEpidemicPassage" parameterType="EpidemicPassage" useGeneratedKeys="true" keyProperty="passageId">
+        insert into epidemic_passage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">title,</if>
+            <if test="author != null and author != ''">author,</if>
+            <if test="contentId != null">content_id,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="author != null and author != ''">#{author},</if>
+            <if test="contentId != null">#{contentId},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicPassage" parameterType="EpidemicPassage">
+        update epidemic_passage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="author != null and author != ''">author = #{author},</if>
+            <if test="contentId != null">content_id = #{contentId},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where passage_id = #{passageId}
+    </update>
+
+    <delete id="deleteEpidemicPassageByPassageId" parameterType="Long">
+        delete from epidemic_passage where passage_id = #{passageId}
+    </delete>
+
+    <delete id="deleteEpidemicPassageByPassageIds" parameterType="String">
+        delete from epidemic_passage where passage_id in 
+        <foreach item="passageId" collection="array" open="(" separator="," close=")">
+            #{passageId}
+        </foreach>
+    </delete>
+</mapper>

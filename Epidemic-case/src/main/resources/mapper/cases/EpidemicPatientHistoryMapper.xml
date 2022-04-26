@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.illness.mapper.EpidemicPatientHistoryMapper">
+    
+    <resultMap type="EpidemicPatientHistory" id="EpidemicPatientHistoryResult">
+        <result property="patientId"    column="patient_id"    />
+        <result property="illnessId"    column="illness_id"    />
+    </resultMap>
+
+    <sql id="selectEpidemicPatientHistoryVo">
+        select patient_id, illness_id from epidemic_patient_history
+    </sql>
+
+    <select id="selectEpidemicPatientHistoryList" parameterType="EpidemicPatientHistory" resultMap="EpidemicPatientHistoryResult">
+        <include refid="selectEpidemicPatientHistoryVo"/>
+        <where>  
+            <if test="patientId != null "> and patient_id = #{patientId}</if>
+            <if test="illnessId != null "> and illness_id = #{illnessId}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicPatientHistoryByPatientId" parameterType="Long" resultMap="EpidemicPatientHistoryResult">
+        <include refid="selectEpidemicPatientHistoryVo"/>
+        where patient_id = #{patientId}
+    </select>
+        
+    <insert id="insertEpidemicPatientHistory" parameterType="EpidemicPatientHistory">
+        insert into epidemic_patient_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">patient_id,</if>
+            <if test="illnessId != null">illness_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">#{patientId},</if>
+            <if test="illnessId != null">#{illnessId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicPatientHistory" parameterType="EpidemicPatientHistory">
+        update epidemic_patient_history
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="illnessId != null">illness_id = #{illnessId},</if>
+        </trim>
+        where patient_id = #{patientId}
+    </update>
+
+    <delete id="deleteEpidemicPatientHistoryByPatientId" parameterType="Long">
+        delete from epidemic_patient_history where patient_id = #{patientId}
+    </delete>
+
+    <delete id="deleteEpidemicPatientHistoryByPatientIds" parameterType="String">
+        delete from epidemic_patient_history where patient_id in 
+        <foreach item="patientId" collection="array" open="(" separator="," close=")">
+            #{patientId}
+        </foreach>
+    </delete>
+</mapper>

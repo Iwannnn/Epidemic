@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.cases.mapper.EpidemicPatientMapper">
+    
+    <resultMap type="EpidemicPatient" id="EpidemicPatientResult">
+        <result property="patientId"    column="patient_id"    />
+        <result property="patientName"    column="patient_name"    />
+        <result property="patientSex"    column="patient_sex"    />
+        <result property="avatar"    column="avatar"    />
+        <result property="height"    column="height"    />
+        <result property="weight"    column="weight"    />
+        <result property="fat"    column="fat"    />
+        <result property="phone"    column="phone"    />
+        <result property="liveRegionId"    column="live_region_id"    />
+        <result property="liveAddress"    column="live_address"    />
+        <result property="patientAge"    column="patient_age"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEpidemicPatientVo">
+        select patient_id, patient_name, patient_sex, avatar, height, weight, fat, phone, live_region_id, live_address, patient_age, is_delete, create_by, create_time, update_by, update_time, remark from epidemic_patient
+    </sql>
+
+    <select id="selectEpidemicPatientList" parameterType="EpidemicPatient" resultMap="EpidemicPatientResult">
+        <include refid="selectEpidemicPatientVo"/>
+        <where>  
+            <if test="patientId != null "> and patient_id = #{patientId}</if>
+            <if test="patientName != null  and patientName != ''"> and patient_name like concat('%', #{patientName}, '%')</if>
+            <if test="patientSex != null  and patientSex != ''"> and patient_sex = #{patientSex}</if>
+            <if test="avatar != null  and avatar != ''"> and avatar = #{avatar}</if>
+            <if test="height != null "> and height = #{height}</if>
+            <if test="weight != null "> and weight = #{weight}</if>
+            <if test="fat != null "> and fat = #{fat}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="liveRegionId != null "> and live_region_id = #{liveRegionId}</if>
+            <if test="liveAddress != null  and liveAddress != ''"> and live_address = #{liveAddress}</if>
+            <if test="patientAge != null "> and patient_age = #{patientAge}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicPatientByPatientId" parameterType="Long" resultMap="EpidemicPatientResult">
+        <include refid="selectEpidemicPatientVo"/>
+        where patient_id = #{patientId}
+    </select>
+        
+    <insert id="insertEpidemicPatient" parameterType="EpidemicPatient" useGeneratedKeys="true" keyProperty="patientId">
+        insert into epidemic_patient
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientName != null and patientName != ''">patient_name,</if>
+            <if test="patientSex != null">patient_sex,</if>
+            <if test="avatar != null and avatar != ''">avatar,</if>
+            <if test="height != null">height,</if>
+            <if test="weight != null">weight,</if>
+            <if test="fat != null">fat,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="liveRegionId != null">live_region_id,</if>
+            <if test="liveAddress != null and liveAddress != ''">live_address,</if>
+            <if test="patientAge != null">patient_age,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientName != null and patientName != ''">#{patientName},</if>
+            <if test="patientSex != null">#{patientSex},</if>
+            <if test="avatar != null and avatar != ''">#{avatar},</if>
+            <if test="height != null">#{height},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="fat != null">#{fat},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="liveRegionId != null">#{liveRegionId},</if>
+            <if test="liveAddress != null and liveAddress != ''">#{liveAddress},</if>
+            <if test="patientAge != null">#{patientAge},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicPatient" parameterType="EpidemicPatient">
+        update epidemic_patient
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="patientName != null and patientName != ''">patient_name = #{patientName},</if>
+            <if test="patientSex != null">patient_sex = #{patientSex},</if>
+            <if test="avatar != null and avatar != ''">avatar = #{avatar},</if>
+            <if test="height != null">height = #{height},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="fat != null">fat = #{fat},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="liveRegionId != null">live_region_id = #{liveRegionId},</if>
+            <if test="liveAddress != null and liveAddress != ''">live_address = #{liveAddress},</if>
+            <if test="patientAge != null">patient_age = #{patientAge},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where patient_id = #{patientId}
+    </update>
+
+    <delete id="deleteEpidemicPatientByPatientId" parameterType="Long">
+        delete from epidemic_patient where patient_id = #{patientId}
+    </delete>
+
+    <delete id="deleteEpidemicPatientByPatientIds" parameterType="String">
+        delete from epidemic_patient where patient_id in 
+        <foreach item="patientId" collection="array" open="(" separator="," close=")">
+            #{patientId}
+        </foreach>
+    </delete>
+</mapper>

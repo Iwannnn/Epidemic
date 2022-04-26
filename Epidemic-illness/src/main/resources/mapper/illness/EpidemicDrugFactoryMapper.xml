@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.illness.mapper.EpidemicDrugFactoryMapper">
+    
+    <resultMap type="EpidemicDrugFactory" id="EpidemicDrugFactoryResult">
+        <result property="factoryId"    column="factory_id"    />
+        <result property="drugId"    column="drug_id"    />
+    </resultMap>
+
+    <sql id="selectEpidemicDrugFactoryVo">
+        select factory_id, drug_id from epidemic_drug_factory
+    </sql>
+
+    <select id="selectEpidemicDrugFactoryList" parameterType="EpidemicDrugFactory" resultMap="EpidemicDrugFactoryResult">
+        <include refid="selectEpidemicDrugFactoryVo"/>
+        <where>  
+            <if test="factoryId != null "> and factory_id = #{factoryId}</if>
+            <if test="drugId != null "> and drug_id = #{drugId}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicDrugFactoryByFactoryId" parameterType="Long" resultMap="EpidemicDrugFactoryResult">
+        <include refid="selectEpidemicDrugFactoryVo"/>
+        where factory_id = #{factoryId}
+    </select>
+        
+    <insert id="insertEpidemicDrugFactory" parameterType="EpidemicDrugFactory">
+        insert into epidemic_drug_factory
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="factoryId != null">factory_id,</if>
+            <if test="drugId != null">drug_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="factoryId != null">#{factoryId},</if>
+            <if test="drugId != null">#{drugId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicDrugFactory" parameterType="EpidemicDrugFactory">
+        update epidemic_drug_factory
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="drugId != null">drug_id = #{drugId},</if>
+        </trim>
+        where factory_id = #{factoryId}
+    </update>
+
+    <delete id="deleteEpidemicDrugFactoryByFactoryId" parameterType="Long">
+        delete from epidemic_drug_factory where factory_id = #{factoryId}
+    </delete>
+
+    <delete id="deleteEpidemicDrugFactoryByFactoryIds" parameterType="String">
+        delete from epidemic_drug_factory where factory_id in 
+        <foreach item="factoryId" collection="array" open="(" separator="," close=")">
+            #{factoryId}
+        </foreach>
+    </delete>
+</mapper>

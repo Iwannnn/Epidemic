@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.illness.mapper.EpidemicTransmissionMapper">
+    
+    <resultMap type="EpidemicTransmission" id="EpidemicTransmissionResult">
+        <result property="transmissionId"    column="transmission_id"    />
+        <result property="transmissionName"    column="transmission_name"    />
+        <result property="distance"    column="distance"    />
+        <result property="duration"    column="duration"    />
+        <result property="transSource"    column="trans_source"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEpidemicTransmissionVo">
+        select transmission_id, transmission_name, distance, duration, trans_source, is_delete, create_time, create_by, update_time, update_by, remark from epidemic_transmission
+    </sql>
+
+    <select id="selectEpidemicTransmissionList" parameterType="EpidemicTransmission" resultMap="EpidemicTransmissionResult">
+        <include refid="selectEpidemicTransmissionVo"/>
+        <where>  
+            <if test="transmissionId != null "> and transmission_id = #{transmissionId}</if>
+            <if test="transmissionName != null  and transmissionName != ''"> and transmission_name like concat('%', #{transmissionName}, '%')</if>
+            <if test="distance != null  and distance != ''"> and distance = #{distance}</if>
+            <if test="duration != null  and duration != ''"> and duration = #{duration}</if>
+            <if test="transSource != null  and transSource != ''"> and trans_source = #{transSource}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicTransmissionByTransmissionId" parameterType="Long" resultMap="EpidemicTransmissionResult">
+        <include refid="selectEpidemicTransmissionVo"/>
+        where transmission_id = #{transmissionId}
+    </select>
+        
+    <insert id="insertEpidemicTransmission" parameterType="EpidemicTransmission" useGeneratedKeys="true" keyProperty="transmissionId">
+        insert into epidemic_transmission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="transmissionName != null and transmissionName != ''">transmission_name,</if>
+            <if test="distance != null and distance != ''">distance,</if>
+            <if test="duration != null and duration != ''">duration,</if>
+            <if test="transSource != null and transSource != ''">trans_source,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="transmissionName != null and transmissionName != ''">#{transmissionName},</if>
+            <if test="distance != null and distance != ''">#{distance},</if>
+            <if test="duration != null and duration != ''">#{duration},</if>
+            <if test="transSource != null and transSource != ''">#{transSource},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicTransmission" parameterType="EpidemicTransmission">
+        update epidemic_transmission
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="transmissionName != null and transmissionName != ''">transmission_name = #{transmissionName},</if>
+            <if test="distance != null and distance != ''">distance = #{distance},</if>
+            <if test="duration != null and duration != ''">duration = #{duration},</if>
+            <if test="transSource != null and transSource != ''">trans_source = #{transSource},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where transmission_id = #{transmissionId}
+    </update>
+
+    <delete id="deleteEpidemicTransmissionByTransmissionId" parameterType="Long">
+        delete from epidemic_transmission where transmission_id = #{transmissionId}
+    </delete>
+
+    <delete id="deleteEpidemicTransmissionByTransmissionIds" parameterType="String">
+        delete from epidemic_transmission where transmission_id in 
+        <foreach item="transmissionId" collection="array" open="(" separator="," close=")">
+            #{transmissionId}
+        </foreach>
+    </delete>
+</mapper>

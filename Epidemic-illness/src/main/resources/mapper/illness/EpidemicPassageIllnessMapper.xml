@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.illness.mapper.EpidemicPassageIllnessMapper">
+    
+    <resultMap type="EpidemicPassageIllness" id="EpidemicPassageIllnessResult">
+        <result property="passageId"    column="passage_id"    />
+        <result property="illnessId"    column="illness_id"    />
+    </resultMap>
+
+    <sql id="selectEpidemicPassageIllnessVo">
+        select passage_id, illness_id from epidemic_passage_illness
+    </sql>
+
+    <select id="selectEpidemicPassageIllnessList" parameterType="EpidemicPassageIllness" resultMap="EpidemicPassageIllnessResult">
+        <include refid="selectEpidemicPassageIllnessVo"/>
+        <where>  
+            <if test="passageId != null "> and passage_id = #{passageId}</if>
+            <if test="illnessId != null "> and illness_id = #{illnessId}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicPassageIllnessByPassageId" parameterType="Long" resultMap="EpidemicPassageIllnessResult">
+        <include refid="selectEpidemicPassageIllnessVo"/>
+        where passage_id = #{passageId}
+    </select>
+        
+    <insert id="insertEpidemicPassageIllness" parameterType="EpidemicPassageIllness" useGeneratedKeys="true" keyProperty="passageId">
+        insert into epidemic_passage_illness
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="illnessId != null">illness_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="illnessId != null">#{illnessId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicPassageIllness" parameterType="EpidemicPassageIllness">
+        update epidemic_passage_illness
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="illnessId != null">illness_id = #{illnessId},</if>
+        </trim>
+        where passage_id = #{passageId}
+    </update>
+
+    <delete id="deleteEpidemicPassageIllnessByPassageId" parameterType="Long">
+        delete from epidemic_passage_illness where passage_id = #{passageId}
+    </delete>
+
+    <delete id="deleteEpidemicPassageIllnessByPassageIds" parameterType="String">
+        delete from epidemic_passage_illness where passage_id in 
+        <foreach item="passageId" collection="array" open="(" separator="," close=")">
+            #{passageId}
+        </foreach>
+    </delete>
+</mapper>

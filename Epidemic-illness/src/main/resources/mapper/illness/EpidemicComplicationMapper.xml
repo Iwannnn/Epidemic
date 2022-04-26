@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.illness.mapper.EpidemicComplicationMapper">
+    
+    <resultMap type="EpidemicComplication" id="EpidemicComplicationResult">
+        <result property="complicationId"    column="complication_id"    />
+        <result property="infectiousId"    column="infectious_id"    />
+    </resultMap>
+
+    <sql id="selectEpidemicComplicationVo">
+        select complication_id, infectious_id from epidemic_complication
+    </sql>
+
+    <select id="selectEpidemicComplicationList" parameterType="EpidemicComplication" resultMap="EpidemicComplicationResult">
+        <include refid="selectEpidemicComplicationVo"/>
+        <where>  
+            <if test="complicationId != null "> and complication_id = #{complicationId}</if>
+            <if test="infectiousId != null "> and infectious_id = #{infectiousId}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicComplicationByComplicationId" parameterType="Long" resultMap="EpidemicComplicationResult">
+        <include refid="selectEpidemicComplicationVo"/>
+        where complication_id = #{complicationId}
+    </select>
+        
+    <insert id="insertEpidemicComplication" parameterType="EpidemicComplication">
+        insert into epidemic_complication
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="complicationId != null">complication_id,</if>
+            <if test="infectiousId != null">infectious_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="complicationId != null">#{complicationId},</if>
+            <if test="infectiousId != null">#{infectiousId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicComplication" parameterType="EpidemicComplication">
+        update epidemic_complication
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="infectiousId != null">infectious_id = #{infectiousId},</if>
+        </trim>
+        where complication_id = #{complicationId}
+    </update>
+
+    <delete id="deleteEpidemicComplicationByComplicationId" parameterType="Long">
+        delete from epidemic_complication where complication_id = #{complicationId}
+    </delete>
+
+    <delete id="deleteEpidemicComplicationByComplicationIds" parameterType="String">
+        delete from epidemic_complication where complication_id in 
+        <foreach item="complicationId" collection="array" open="(" separator="," close=")">
+            #{complicationId}
+        </foreach>
+    </delete>
+</mapper>

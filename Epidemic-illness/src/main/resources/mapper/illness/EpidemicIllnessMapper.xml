@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.illness.mapper.EpidemicIllnessMapper">
+    
+    <resultMap type="EpidemicIllness" id="EpidemicIllnessResult">
+        <result property="illnessId"    column="illness_id"    />
+        <result property="illnessName"    column="illness_name"    />
+        <result property="catrgoryId"    column="catrgory_id"    />
+        <result property="symptom"    column="symptom"    />
+        <result property="pathogeny"    column="pathogeny"    />
+        <result property="ponderance"    column="ponderance"    />
+        <result property="isFectious"    column="is_fectious"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="craetedBy"    column="craeted_by"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEpidemicIllnessVo">
+        select illness_id, illness_name, catrgory_id, symptom, pathogeny, ponderance, is_fectious, is_deleted, craeted_by, created_time, update_by, update_time, remark from epidemic_illness
+    </sql>
+
+    <select id="selectEpidemicIllnessList" parameterType="EpidemicIllness" resultMap="EpidemicIllnessResult">
+        <include refid="selectEpidemicIllnessVo"/>
+        <where>  
+            <if test="illnessId != null "> and illness_id = #{illnessId}</if>
+            <if test="illnessName != null  and illnessName != ''"> and illness_name like concat('%', #{illnessName}, '%')</if>
+            <if test="catrgoryId != null "> and catrgory_id = #{catrgoryId}</if>
+            <if test="symptom != null  and symptom != ''"> and symptom = #{symptom}</if>
+            <if test="pathogeny != null  and pathogeny != ''"> and pathogeny = #{pathogeny}</if>
+            <if test="ponderance != null  and ponderance != ''"> and ponderance = #{ponderance}</if>
+            <if test="isFectious != null "> and is_fectious = #{isFectious}</if>
+            <if test="isDeleted != null "> and is_deleted = #{isDeleted}</if>
+            <if test="craetedBy != null  and craetedBy != ''"> and craeted_by = #{craetedBy}</if>
+            <if test="createdTime != null "> and created_time = #{createdTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicIllnessByIllnessId" parameterType="Long" resultMap="EpidemicIllnessResult">
+        <include refid="selectEpidemicIllnessVo"/>
+        where illness_id = #{illnessId}
+    </select>
+        
+    <insert id="insertEpidemicIllness" parameterType="EpidemicIllness" useGeneratedKeys="true" keyProperty="illnessId">
+        insert into epidemic_illness
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="illnessName != null and illnessName != ''">illness_name,</if>
+            <if test="catrgoryId != null">catrgory_id,</if>
+            <if test="symptom != null and symptom != ''">symptom,</if>
+            <if test="pathogeny != null and pathogeny != ''">pathogeny,</if>
+            <if test="ponderance != null and ponderance != ''">ponderance,</if>
+            <if test="isFectious != null">is_fectious,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="craetedBy != null and craetedBy != ''">craeted_by,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="illnessName != null and illnessName != ''">#{illnessName},</if>
+            <if test="catrgoryId != null">#{catrgoryId},</if>
+            <if test="symptom != null and symptom != ''">#{symptom},</if>
+            <if test="pathogeny != null and pathogeny != ''">#{pathogeny},</if>
+            <if test="ponderance != null and ponderance != ''">#{ponderance},</if>
+            <if test="isFectious != null">#{isFectious},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="craetedBy != null and craetedBy != ''">#{craetedBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicIllness" parameterType="EpidemicIllness">
+        update epidemic_illness
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="illnessName != null and illnessName != ''">illness_name = #{illnessName},</if>
+            <if test="catrgoryId != null">catrgory_id = #{catrgoryId},</if>
+            <if test="symptom != null and symptom != ''">symptom = #{symptom},</if>
+            <if test="pathogeny != null and pathogeny != ''">pathogeny = #{pathogeny},</if>
+            <if test="ponderance != null and ponderance != ''">ponderance = #{ponderance},</if>
+            <if test="isFectious != null">is_fectious = #{isFectious},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="craetedBy != null and craetedBy != ''">craeted_by = #{craetedBy},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </trim>
+        where illness_id = #{illnessId}
+    </update>
+
+    <delete id="deleteEpidemicIllnessByIllnessId" parameterType="Long">
+        delete from epidemic_illness where illness_id = #{illnessId}
+    </delete>
+
+    <delete id="deleteEpidemicIllnessByIllnessIds" parameterType="String">
+        delete from epidemic_illness where illness_id in 
+        <foreach item="illnessId" collection="array" open="(" separator="," close=")">
+            #{illnessId}
+        </foreach>
+    </delete>
+</mapper>

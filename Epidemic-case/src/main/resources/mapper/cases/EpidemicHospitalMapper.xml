@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.cases.mapper.EpidemicHospitalMapper">
+    
+    <resultMap type="EpidemicHospital" id="EpidemicHospitalResult">
+        <result property="hospitalId"    column="hospital_id"    />
+        <result property="hospitalName"    column="hospital_name"    />
+        <result property="establishRegionId"    column="establish_region_id"    />
+        <result property="estabilshAddress"    column="estabilsh_address"    />
+        <result property="isPublic"    column="is_public"    />
+        <result property="president"    column="president"    />
+        <result property="level"    column="level"    />
+        <result property="type"    column="type"    />
+        <result property="establishTime"    column="establish_time"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEpidemicHospitalVo">
+        select hospital_id, hospital_name, establish_region_id, estabilsh_address, is_public, president, level, type, establish_time, is_delete, create_by, create_time, update_by, update_time, remark from epidemic_hospital
+    </sql>
+
+    <select id="selectEpidemicHospitalList" parameterType="EpidemicHospital" resultMap="EpidemicHospitalResult">
+        <include refid="selectEpidemicHospitalVo"/>
+        <where>  
+            <if test="hospitalId != null "> and hospital_id = #{hospitalId}</if>
+            <if test="hospitalName != null  and hospitalName != ''"> and hospital_name like concat('%', #{hospitalName}, '%')</if>
+            <if test="establishRegionId != null "> and establish_region_id = #{establishRegionId}</if>
+            <if test="estabilshAddress != null  and estabilshAddress != ''"> and estabilsh_address = #{estabilshAddress}</if>
+            <if test="isPublic != null "> and is_public = #{isPublic}</if>
+            <if test="president != null  and president != ''"> and president = #{president}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="establishTime != null "> and establish_time = #{establishTime}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicHospitalByHospitalId" parameterType="Long" resultMap="EpidemicHospitalResult">
+        <include refid="selectEpidemicHospitalVo"/>
+        where hospital_id = #{hospitalId}
+    </select>
+        
+    <insert id="insertEpidemicHospital" parameterType="EpidemicHospital" useGeneratedKeys="true" keyProperty="hospitalId">
+        insert into epidemic_hospital
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hospitalName != null and hospitalName != ''">hospital_name,</if>
+            <if test="establishRegionId != null">establish_region_id,</if>
+            <if test="estabilshAddress != null and estabilshAddress != ''">estabilsh_address,</if>
+            <if test="isPublic != null">is_public,</if>
+            <if test="president != null and president != ''">president,</if>
+            <if test="level != null and level != ''">level,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="establishTime != null">establish_time,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hospitalName != null and hospitalName != ''">#{hospitalName},</if>
+            <if test="establishRegionId != null">#{establishRegionId},</if>
+            <if test="estabilshAddress != null and estabilshAddress != ''">#{estabilshAddress},</if>
+            <if test="isPublic != null">#{isPublic},</if>
+            <if test="president != null and president != ''">#{president},</if>
+            <if test="level != null and level != ''">#{level},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="establishTime != null">#{establishTime},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicHospital" parameterType="EpidemicHospital">
+        update epidemic_hospital
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="hospitalName != null and hospitalName != ''">hospital_name = #{hospitalName},</if>
+            <if test="establishRegionId != null">establish_region_id = #{establishRegionId},</if>
+            <if test="estabilshAddress != null and estabilshAddress != ''">estabilsh_address = #{estabilshAddress},</if>
+            <if test="isPublic != null">is_public = #{isPublic},</if>
+            <if test="president != null and president != ''">president = #{president},</if>
+            <if test="level != null and level != ''">level = #{level},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="establishTime != null">establish_time = #{establishTime},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </trim>
+        where hospital_id = #{hospitalId}
+    </update>
+
+    <delete id="deleteEpidemicHospitalByHospitalId" parameterType="Long">
+        delete from epidemic_hospital where hospital_id = #{hospitalId}
+    </delete>
+
+    <delete id="deleteEpidemicHospitalByHospitalIds" parameterType="String">
+        delete from epidemic_hospital where hospital_id in 
+        <foreach item="hospitalId" collection="array" open="(" separator="," close=")">
+            #{hospitalId}
+        </foreach>
+    </delete>
+</mapper>

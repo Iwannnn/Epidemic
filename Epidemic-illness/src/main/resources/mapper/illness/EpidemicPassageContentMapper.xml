@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.illness.mapper.EpidemicPassageContentMapper">
+    
+    <resultMap type="EpidemicPassageContent" id="EpidemicPassageContentResult">
+        <result property="contentId"    column="content_id"    />
+        <result property="content"    column="content"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEpidemicPassageContentVo">
+        select content_id, content, is_delete, create_time, create_by, update_time, update_by, remark from epidemic_passage_content
+    </sql>
+
+    <select id="selectEpidemicPassageContentList" parameterType="EpidemicPassageContent" resultMap="EpidemicPassageContentResult">
+        <include refid="selectEpidemicPassageContentVo"/>
+        <where>  
+            <if test="contentId != null "> and content_id = #{contentId}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicPassageContentByContentId" parameterType="Long" resultMap="EpidemicPassageContentResult">
+        <include refid="selectEpidemicPassageContentVo"/>
+        where content_id = #{contentId}
+    </select>
+        
+    <insert id="insertEpidemicPassageContent" parameterType="EpidemicPassageContent" useGeneratedKeys="true" keyProperty="contentId">
+        insert into epidemic_passage_content
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="content != null and content != ''">content,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicPassageContent" parameterType="EpidemicPassageContent">
+        update epidemic_passage_content
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where content_id = #{contentId}
+    </update>
+
+    <delete id="deleteEpidemicPassageContentByContentId" parameterType="Long">
+        delete from epidemic_passage_content where content_id = #{contentId}
+    </delete>
+
+    <delete id="deleteEpidemicPassageContentByContentIds" parameterType="String">
+        delete from epidemic_passage_content where content_id in 
+        <foreach item="contentId" collection="array" open="(" separator="," close=")">
+            #{contentId}
+        </foreach>
+    </delete>
+</mapper>

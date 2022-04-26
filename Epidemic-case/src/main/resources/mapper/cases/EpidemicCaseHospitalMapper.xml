@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.cases.mapper.EpidemicCaseHospitalMapper">
+    
+    <resultMap type="EpidemicCaseHospital" id="EpidemicCaseHospitalResult">
+        <result property="caseHospitalId"    column="case_hospital_id"    />
+        <result property="caseId"    column="case_id"    />
+        <result property="hospitalId"    column="hospital_id"    />
+        <result property="visitTime"    column="visit_time"    />
+        <result property="number"    column="number"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEpidemicCaseHospitalVo">
+        select case_hospital_id, case_id, hospital_id, visit_time, number, is_delete, create_by, create_time, update_by, update_time, remark from epidemic_case_hospital
+    </sql>
+
+    <select id="selectEpidemicCaseHospitalList" parameterType="EpidemicCaseHospital" resultMap="EpidemicCaseHospitalResult">
+        <include refid="selectEpidemicCaseHospitalVo"/>
+        <where>  
+            <if test="caseHospitalId != null "> and case_hospital_id = #{caseHospitalId}</if>
+            <if test="caseId != null "> and case_id = #{caseId}</if>
+            <if test="hospitalId != null "> and hospital_id = #{hospitalId}</if>
+            <if test="visitTime != null "> and visit_time = #{visitTime}</if>
+            <if test="number != null "> and number = #{number}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicCaseHospitalByCaseHospitalId" parameterType="Long" resultMap="EpidemicCaseHospitalResult">
+        <include refid="selectEpidemicCaseHospitalVo"/>
+        where case_hospital_id = #{caseHospitalId}
+    </select>
+        
+    <insert id="insertEpidemicCaseHospital" parameterType="EpidemicCaseHospital" useGeneratedKeys="true" keyProperty="caseHospitalId">
+        insert into epidemic_case_hospital
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="caseId != null">case_id,</if>
+            <if test="hospitalId != null">hospital_id,</if>
+            <if test="visitTime != null">visit_time,</if>
+            <if test="number != null">number,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="caseId != null">#{caseId},</if>
+            <if test="hospitalId != null">#{hospitalId},</if>
+            <if test="visitTime != null">#{visitTime},</if>
+            <if test="number != null">#{number},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicCaseHospital" parameterType="EpidemicCaseHospital">
+        update epidemic_case_hospital
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="caseId != null">case_id = #{caseId},</if>
+            <if test="hospitalId != null">hospital_id = #{hospitalId},</if>
+            <if test="visitTime != null">visit_time = #{visitTime},</if>
+            <if test="number != null">number = #{number},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </trim>
+        where case_hospital_id = #{caseHospitalId}
+    </update>
+
+    <delete id="deleteEpidemicCaseHospitalByCaseHospitalId" parameterType="Long">
+        delete from epidemic_case_hospital where case_hospital_id = #{caseHospitalId}
+    </delete>
+
+    <delete id="deleteEpidemicCaseHospitalByCaseHospitalIds" parameterType="String">
+        delete from epidemic_case_hospital where case_hospital_id in 
+        <foreach item="caseHospitalId" collection="array" open="(" separator="," close=")">
+            #{caseHospitalId}
+        </foreach>
+    </delete>
+</mapper>

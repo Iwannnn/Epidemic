@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.cases.mapper.EpidemicExpertMapper">
+    
+    <resultMap type="EpidemicExpert" id="EpidemicExpertResult">
+        <result property="expertId"    column="expert_id"    />
+        <result property="expertName"    column="expert_name"    />
+        <result property="expertSex"    column="expert_sex"    />
+        <result property="expertAge"    column="expert_age"    />
+        <result property="introduction"    column="introduction"    />
+        <result property="idNumber"    column="id_number"    />
+        <result property="outlook"    column="outlook"    />
+        <result property="education"    column="education"    />
+        <result property="telephone"    column="telephone"    />
+        <result property="email"    column="email"    />
+        <result property="hospitalId"    column="hospital_id"    />
+        <result property="liveRegionId"    column="live_region_id"    />
+        <result property="address"    column="address"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+        <result property="isDelete"    column="is_delete"    />
+    </resultMap>
+
+    <sql id="selectEpidemicExpertVo">
+        select expert_id, expert_name, expert_sex, expert_age, introduction, id_number, outlook, education, telephone, email, hospital_id, live_region_id, address, create_time, create_by, update_time, update_by, remark, is_delete from epidemic_expert
+    </sql>
+
+    <select id="selectEpidemicExpertList" parameterType="EpidemicExpert" resultMap="EpidemicExpertResult">
+        <include refid="selectEpidemicExpertVo"/>
+        <where>  
+            <if test="expertId != null "> and expert_id = #{expertId}</if>
+            <if test="expertName != null  and expertName != ''"> and expert_name like concat('%', #{expertName}, '%')</if>
+            <if test="expertSex != null  and expertSex != ''"> and expert_sex = #{expertSex}</if>
+            <if test="expertAge != null "> and expert_age = #{expertAge}</if>
+            <if test="introduction != null  and introduction != ''"> and introduction = #{introduction}</if>
+            <if test="idNumber != null  and idNumber != ''"> and id_number = #{idNumber}</if>
+            <if test="outlook != null  and outlook != ''"> and outlook = #{outlook}</if>
+            <if test="education != null  and education != ''"> and education = #{education}</if>
+            <if test="telephone != null  and telephone != ''"> and telephone = #{telephone}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="hospitalId != null "> and hospital_id = #{hospitalId}</if>
+            <if test="liveRegionId != null "> and live_region_id = #{liveRegionId}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicExpertByExpertId" parameterType="Long" resultMap="EpidemicExpertResult">
+        <include refid="selectEpidemicExpertVo"/>
+        where expert_id = #{expertId}
+    </select>
+        
+    <insert id="insertEpidemicExpert" parameterType="EpidemicExpert" useGeneratedKeys="true" keyProperty="expertId">
+        insert into epidemic_expert
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="expertName != null and expertName != ''">expert_name,</if>
+            <if test="expertSex != null and expertSex != ''">expert_sex,</if>
+            <if test="expertAge != null">expert_age,</if>
+            <if test="introduction != null and introduction != ''">introduction,</if>
+            <if test="idNumber != null and idNumber != ''">id_number,</if>
+            <if test="outlook != null and outlook != ''">outlook,</if>
+            <if test="education != null and education != ''">education,</if>
+            <if test="telephone != null and telephone != ''">telephone,</if>
+            <if test="email != null and email != ''">email,</if>
+            <if test="hospitalId != null">hospital_id,</if>
+            <if test="liveRegionId != null">live_region_id,</if>
+            <if test="address != null and address != ''">address,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+            <if test="isDelete != null">is_delete,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="expertName != null and expertName != ''">#{expertName},</if>
+            <if test="expertSex != null and expertSex != ''">#{expertSex},</if>
+            <if test="expertAge != null">#{expertAge},</if>
+            <if test="introduction != null and introduction != ''">#{introduction},</if>
+            <if test="idNumber != null and idNumber != ''">#{idNumber},</if>
+            <if test="outlook != null and outlook != ''">#{outlook},</if>
+            <if test="education != null and education != ''">#{education},</if>
+            <if test="telephone != null and telephone != ''">#{telephone},</if>
+            <if test="email != null and email != ''">#{email},</if>
+            <if test="hospitalId != null">#{hospitalId},</if>
+            <if test="liveRegionId != null">#{liveRegionId},</if>
+            <if test="address != null and address != ''">#{address},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicExpert" parameterType="EpidemicExpert">
+        update epidemic_expert
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="expertName != null and expertName != ''">expert_name = #{expertName},</if>
+            <if test="expertSex != null and expertSex != ''">expert_sex = #{expertSex},</if>
+            <if test="expertAge != null">expert_age = #{expertAge},</if>
+            <if test="introduction != null and introduction != ''">introduction = #{introduction},</if>
+            <if test="idNumber != null and idNumber != ''">id_number = #{idNumber},</if>
+            <if test="outlook != null and outlook != ''">outlook = #{outlook},</if>
+            <if test="education != null and education != ''">education = #{education},</if>
+            <if test="telephone != null and telephone != ''">telephone = #{telephone},</if>
+            <if test="email != null and email != ''">email = #{email},</if>
+            <if test="hospitalId != null">hospital_id = #{hospitalId},</if>
+            <if test="liveRegionId != null">live_region_id = #{liveRegionId},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+        </trim>
+        where expert_id = #{expertId}
+    </update>
+
+    <delete id="deleteEpidemicExpertByExpertId" parameterType="Long">
+        delete from epidemic_expert where expert_id = #{expertId}
+    </delete>
+
+    <delete id="deleteEpidemicExpertByExpertIds" parameterType="String">
+        delete from epidemic_expert where expert_id in 
+        <foreach item="expertId" collection="array" open="(" separator="," close=")">
+            #{expertId}
+        </foreach>
+    </delete>
+</mapper>

@@ -61,6 +61,20 @@
             <artifactId>Epidemic-generator</artifactId>
         </dependency>
 
+		<!-- 病例模块-->
+        <dependency>
+               <groupId>zstu.epidemic</groupId>
+               <artifactId>Epidemic-case</artifactId>
+               <version>${Epidemic.version}</version>
+        </dependency>
+
+		 <!-- 疾病模块-->
+        <dependency>
+               <groupId>zstu.epidemic</groupId>
+               <artifactId>Epidemic-illness</artifactId>
+               <version>${Epidemic.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

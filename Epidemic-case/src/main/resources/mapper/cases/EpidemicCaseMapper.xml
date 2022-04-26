@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.cases.mapper.EpidemicCaseMapper">
+    
+    <resultMap type="EpidemicCase" id="EpidemicCaseResult">
+        <result property="caseId"    column="case_id"    />
+        <result property="patientId"    column="patient_id"    />
+        <result property="illnessId"    column="illness_id"    />
+        <result property="infectedRegionId"    column="infected_region_id"    />
+        <result property="infectedAddress"    column="infected_address"    />
+        <result property="isCure"    column="is_cure"    />
+        <result property="isHosp"    column="is_hosp"    />
+        <result property="isDie"    column="is_die"    />
+        <result property="infectTime"    column="infect_time"    />
+        <result property="cureTime"    column="cure_time"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEpidemicCaseVo">
+        select case_id, patient_id, illness_id, infected_region_id, infected_address, is_cure, is_hosp, is_die, infect_time, cure_time, is_delete, create_by, create_time, update_by, update_time, remark from epidemic_case
+    </sql>
+
+    <select id="selectEpidemicCaseList" parameterType="EpidemicCase" resultMap="EpidemicCaseResult">
+        <include refid="selectEpidemicCaseVo"/>
+        <where>  
+            <if test="caseId != null "> and case_id = #{caseId}</if>
+            <if test="patientId != null "> and patient_id = #{patientId}</if>
+            <if test="illnessId != null "> and illness_id = #{illnessId}</if>
+            <if test="infectedRegionId != null "> and infected_region_id = #{infectedRegionId}</if>
+            <if test="infectedAddress != null  and infectedAddress != ''"> and infected_address = #{infectedAddress}</if>
+            <if test="isCure != null "> and is_cure = #{isCure}</if>
+            <if test="isHosp != null "> and is_hosp = #{isHosp}</if>
+            <if test="isDie != null "> and is_die = #{isDie}</if>
+            <if test="infectTime != null "> and infect_time = #{infectTime}</if>
+            <if test="cureTime != null "> and cure_time = #{cureTime}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicCaseByCaseId" parameterType="Long" resultMap="EpidemicCaseResult">
+        <include refid="selectEpidemicCaseVo"/>
+        where case_id = #{caseId}
+    </select>
+        
+    <insert id="insertEpidemicCase" parameterType="EpidemicCase" useGeneratedKeys="true" keyProperty="caseId">
+        insert into epidemic_case
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">patient_id,</if>
+            <if test="illnessId != null">illness_id,</if>
+            <if test="infectedRegionId != null">infected_region_id,</if>
+            <if test="infectedAddress != null and infectedAddress != ''">infected_address,</if>
+            <if test="isCure != null">is_cure,</if>
+            <if test="isHosp != null">is_hosp,</if>
+            <if test="isDie != null">is_die,</if>
+            <if test="infectTime != null">infect_time,</if>
+            <if test="cureTime != null">cure_time,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">#{patientId},</if>
+            <if test="illnessId != null">#{illnessId},</if>
+            <if test="infectedRegionId != null">#{infectedRegionId},</if>
+            <if test="infectedAddress != null and infectedAddress != ''">#{infectedAddress},</if>
+            <if test="isCure != null">#{isCure},</if>
+            <if test="isHosp != null">#{isHosp},</if>
+            <if test="isDie != null">#{isDie},</if>
+            <if test="infectTime != null">#{infectTime},</if>
+            <if test="cureTime != null">#{cureTime},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicCase" parameterType="EpidemicCase">
+        update epidemic_case
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="patientId != null">patient_id = #{patientId},</if>
+            <if test="illnessId != null">illness_id = #{illnessId},</if>
+            <if test="infectedRegionId != null">infected_region_id = #{infectedRegionId},</if>
+            <if test="infectedAddress != null and infectedAddress != ''">infected_address = #{infectedAddress},</if>
+            <if test="isCure != null">is_cure = #{isCure},</if>
+            <if test="isHosp != null">is_hosp = #{isHosp},</if>
+            <if test="isDie != null">is_die = #{isDie},</if>
+            <if test="infectTime != null">infect_time = #{infectTime},</if>
+            <if test="cureTime != null">cure_time = #{cureTime},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </trim>
+        where case_id = #{caseId}
+    </update>
+
+    <delete id="deleteEpidemicCaseByCaseId" parameterType="Long">
+        delete from epidemic_case where case_id = #{caseId}
+    </delete>
+
+    <delete id="deleteEpidemicCaseByCaseIds" parameterType="String">
+        delete from epidemic_case where case_id in 
+        <foreach item="caseId" collection="array" open="(" separator="," close=")">
+            #{caseId}
+        </foreach>
+    </delete>
+</mapper>

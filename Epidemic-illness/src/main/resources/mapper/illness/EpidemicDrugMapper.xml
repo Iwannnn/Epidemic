@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.illness.mapper.EpidemicDrugMapper">
+    
+    <resultMap type="EpidemicDrug" id="EpidemicDrugResult">
+        <result property="drugId"    column="drug_id"    />
+        <result property="drugName"    column="drug_name"    />
+        <result property="ingredient"    column="ingredient"    />
+        <result property="appearance"    column="appearance"    />
+        <result property="specification"    column="specification"    />
+        <result property="usage"    column="usage"    />
+        <result property="tabu"    column="tabu"    />
+        <result property="adverseReaction"    column="adverse_reaction"    />
+        <result property="approvalNumber"    column="approval_number"    />
+        <result property="storageMethod"    column="storage_method"    />
+        <result property="packaging"    column="packaging"    />
+        <result property="indata"    column="indata"    />
+        <result property="factoryId"    column="factory_id"    />
+        <result property="companyId"    column="company_id"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEpidemicDrugVo">
+        select drug_id, drug_name, ingredient, appearance, specification, usage, tabu, adverse_reaction, approval_number, storage_method, packaging, indata, factory_id, company_id, is_delete, create_by, create_time, update_by, update_time, remark from epidemic_drug
+    </sql>
+
+    <select id="selectEpidemicDrugList" parameterType="EpidemicDrug" resultMap="EpidemicDrugResult">
+        <include refid="selectEpidemicDrugVo"/>
+        <where>  
+            <if test="drugId != null "> and drug_id = #{drugId}</if>
+            <if test="drugName != null  and drugName != ''"> and drug_name like concat('%', #{drugName}, '%')</if>
+            <if test="ingredient != null  and ingredient != ''"> and ingredient = #{ingredient}</if>
+            <if test="appearance != null  and appearance != ''"> and appearance = #{appearance}</if>
+            <if test="specification != null  and specification != ''"> and specification = #{specification}</if>
+            <if test="usage != null  and usage != ''"> and usage = #{usage}</if>
+            <if test="tabu != null  and tabu != ''"> and tabu = #{tabu}</if>
+            <if test="adverseReaction != null  and adverseReaction != ''"> and adverse_reaction = #{adverseReaction}</if>
+            <if test="approvalNumber != null "> and approval_number = #{approvalNumber}</if>
+            <if test="storageMethod != null  and storageMethod != ''"> and storage_method = #{storageMethod}</if>
+            <if test="packaging != null  and packaging != ''"> and packaging = #{packaging}</if>
+            <if test="indata != null  and indata != ''"> and indata = #{indata}</if>
+            <if test="factoryId != null "> and factory_id = #{factoryId}</if>
+            <if test="companyId != null "> and company_id = #{companyId}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicDrugByDrugId" parameterType="Long" resultMap="EpidemicDrugResult">
+        <include refid="selectEpidemicDrugVo"/>
+        where drug_id = #{drugId}
+    </select>
+        
+    <insert id="insertEpidemicDrug" parameterType="EpidemicDrug" useGeneratedKeys="true" keyProperty="drugId">
+        insert into epidemic_drug
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="drugName != null and drugName != ''">drug_name,</if>
+            <if test="ingredient != null and ingredient != ''">ingredient,</if>
+            <if test="appearance != null and appearance != ''">appearance,</if>
+            <if test="specification != null and specification != ''">specification,</if>
+            <if test="usage != null and usage != ''">usage,</if>
+            <if test="tabu != null and tabu != ''">tabu,</if>
+            <if test="adverseReaction != null and adverseReaction != ''">adverse_reaction,</if>
+            <if test="approvalNumber != null">approval_number,</if>
+            <if test="storageMethod != null and storageMethod != ''">storage_method,</if>
+            <if test="packaging != null and packaging != ''">packaging,</if>
+            <if test="indata != null and indata != ''">indata,</if>
+            <if test="factoryId != null">factory_id,</if>
+            <if test="companyId != null">company_id,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="drugName != null and drugName != ''">#{drugName},</if>
+            <if test="ingredient != null and ingredient != ''">#{ingredient},</if>
+            <if test="appearance != null and appearance != ''">#{appearance},</if>
+            <if test="specification != null and specification != ''">#{specification},</if>
+            <if test="usage != null and usage != ''">#{usage},</if>
+            <if test="tabu != null and tabu != ''">#{tabu},</if>
+            <if test="adverseReaction != null and adverseReaction != ''">#{adverseReaction},</if>
+            <if test="approvalNumber != null">#{approvalNumber},</if>
+            <if test="storageMethod != null and storageMethod != ''">#{storageMethod},</if>
+            <if test="packaging != null and packaging != ''">#{packaging},</if>
+            <if test="indata != null and indata != ''">#{indata},</if>
+            <if test="factoryId != null">#{factoryId},</if>
+            <if test="companyId != null">#{companyId},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicDrug" parameterType="EpidemicDrug">
+        update epidemic_drug
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="drugName != null and drugName != ''">drug_name = #{drugName},</if>
+            <if test="ingredient != null and ingredient != ''">ingredient = #{ingredient},</if>
+            <if test="appearance != null and appearance != ''">appearance = #{appearance},</if>
+            <if test="specification != null and specification != ''">specification = #{specification},</if>
+            <if test="usage != null and usage != ''">usage = #{usage},</if>
+            <if test="tabu != null and tabu != ''">tabu = #{tabu},</if>
+            <if test="adverseReaction != null and adverseReaction != ''">adverse_reaction = #{adverseReaction},</if>
+            <if test="approvalNumber != null">approval_number = #{approvalNumber},</if>
+            <if test="storageMethod != null and storageMethod != ''">storage_method = #{storageMethod},</if>
+            <if test="packaging != null and packaging != ''">packaging = #{packaging},</if>
+            <if test="indata != null and indata != ''">indata = #{indata},</if>
+            <if test="factoryId != null">factory_id = #{factoryId},</if>
+            <if test="companyId != null">company_id = #{companyId},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </trim>
+        where drug_id = #{drugId}
+    </update>
+
+    <delete id="deleteEpidemicDrugByDrugId" parameterType="Long">
+        delete from epidemic_drug where drug_id = #{drugId}
+    </delete>
+
+    <delete id="deleteEpidemicDrugByDrugIds" parameterType="String">
+        delete from epidemic_drug where drug_id in 
+        <foreach item="drugId" collection="array" open="(" separator="," close=")">
+            #{drugId}
+        </foreach>
+    </delete>
+</mapper>

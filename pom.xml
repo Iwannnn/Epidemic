@@ -199,6 +199,20 @@
                 <version>${Epidemic.version}</version>
             </dependency>
 
+			<!-- 病例模块 -->
+            <dependency>
+                <groupId>zstu.epidemic</groupId>
+                <artifactId>Epidemic-case</artifactId>
+                <version>${Epidemic.version}</version>
+            </dependency>
+
+			 <!-- 疾病模块-->
+            <dependency>
+                <groupId>zstu.epidemic</groupId>
+                <artifactId>Epidemic-illness</artifactId>
+                <version>${Epidemic.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -209,6 +223,8 @@
         <module>Epidemic-quartz</module>
         <module>Epidemic-generator</module>
         <module>Epidemic-common</module>
+        <!-- <module>Epidemic-case</module>
+        <module>Epidemic-illness</module> -->
     </modules>
     <packaging>pom</packaging>
 

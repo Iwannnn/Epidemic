@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zstu.epidemic.illness.mapper.EpidemicFactoryMapper">
+    
+    <resultMap type="EpidemicFactory" id="EpidemicFactoryResult">
+        <result property="factoryId"    column="factory_id"    />
+        <result property="factoryName"    column="factory_name"    />
+        <result property="factoryRegionId"    column="factory_region_id"    />
+        <result property="factoryAddress"    column="factory_address"    />
+        <result property="postalCode"    column="postal_code"    />
+        <result property="phoneNumber"    column="phone_number"    />
+        <result property="faxNumber"    column="fax_number"    />
+        <result property="siteUrl"    column="site_url"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEpidemicFactoryVo">
+        select factory_id, factory_name, factory_region_id, factory_address, postal_code, phone_number, fax_number, site_url, is_delete, create_by, create_time, update_by, update_time, remark from epidemic_factory
+    </sql>
+
+    <select id="selectEpidemicFactoryList" parameterType="EpidemicFactory" resultMap="EpidemicFactoryResult">
+        <include refid="selectEpidemicFactoryVo"/>
+        <where>  
+            <if test="factoryId != null "> and factory_id = #{factoryId}</if>
+            <if test="factoryName != null  and factoryName != ''"> and factory_name like concat('%', #{factoryName}, '%')</if>
+            <if test="factoryRegionId != null "> and factory_region_id = #{factoryRegionId}</if>
+            <if test="factoryAddress != null  and factoryAddress != ''"> and factory_address = #{factoryAddress}</if>
+            <if test="postalCode != null  and postalCode != ''"> and postal_code = #{postalCode}</if>
+            <if test="phoneNumber != null  and phoneNumber != ''"> and phone_number = #{phoneNumber}</if>
+            <if test="faxNumber != null  and faxNumber != ''"> and fax_number = #{faxNumber}</if>
+            <if test="siteUrl != null  and siteUrl != ''"> and site_url = #{siteUrl}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+    
+    <select id="selectEpidemicFactoryByFactoryId" parameterType="Long" resultMap="EpidemicFactoryResult">
+        <include refid="selectEpidemicFactoryVo"/>
+        where factory_id = #{factoryId}
+    </select>
+        
+    <insert id="insertEpidemicFactory" parameterType="EpidemicFactory" useGeneratedKeys="true" keyProperty="factoryId">
+        insert into epidemic_factory
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="factoryName != null and factoryName != ''">factory_name,</if>
+            <if test="factoryRegionId != null">factory_region_id,</if>
+            <if test="factoryAddress != null and factoryAddress != ''">factory_address,</if>
+            <if test="postalCode != null and postalCode != ''">postal_code,</if>
+            <if test="phoneNumber != null and phoneNumber != ''">phone_number,</if>
+            <if test="faxNumber != null and faxNumber != ''">fax_number,</if>
+            <if test="siteUrl != null and siteUrl != ''">site_url,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="factoryName != null and factoryName != ''">#{factoryName},</if>
+            <if test="factoryRegionId != null">#{factoryRegionId},</if>
+            <if test="factoryAddress != null and factoryAddress != ''">#{factoryAddress},</if>
+            <if test="postalCode != null and postalCode != ''">#{postalCode},</if>
+            <if test="phoneNumber != null and phoneNumber != ''">#{phoneNumber},</if>
+            <if test="faxNumber != null and faxNumber != ''">#{faxNumber},</if>
+            <if test="siteUrl != null and siteUrl != ''">#{siteUrl},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEpidemicFactory" parameterType="EpidemicFactory">
+        update epidemic_factory
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="factoryName != null and factoryName != ''">factory_name = #{factoryName},</if>
+            <if test="factoryRegionId != null">factory_region_id = #{factoryRegionId},</if>
+            <if test="factoryAddress != null and factoryAddress != ''">factory_address = #{factoryAddress},</if>
+            <if test="postalCode != null and postalCode != ''">postal_code = #{postalCode},</if>
+            <if test="phoneNumber != null and phoneNumber != ''">phone_number = #{phoneNumber},</if>
+            <if test="faxNumber != null and faxNumber != ''">fax_number = #{faxNumber},</if>
+            <if test="siteUrl != null and siteUrl != ''">site_url = #{siteUrl},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </trim>
+        where factory_id = #{factoryId}
+    </update>
+
+    <delete id="deleteEpidemicFactoryByFactoryId" parameterType="Long">
+        delete from epidemic_factory where factory_id = #{factoryId}
+    </delete>
+
+    <delete id="deleteEpidemicFactoryByFactoryIds" parameterType="String">
+        delete from epidemic_factory where factory_id in 
+        <foreach item="factoryId" collection="array" open="(" separator="," close=")">
+            #{factoryId}
+        </foreach>
+    </delete>
+</mapper>
