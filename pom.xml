@@ -225,7 +225,6 @@
         <module>Epidemic-common</module>
         <module>Epidemic-case</module>
         <module>Epidemic-illness</module>
-        <module>Epidemic-analysis</module>
     </modules>
     <packaging>pom</packaging>
 
