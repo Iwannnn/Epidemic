@@ -25,80 +25,73 @@ import zstu.epidemic.common.core.page.TableDataInfo;
  * 药品管理Controller
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-03
  */
 @RestController
 @RequestMapping("/illness/drug")
-public class EpidemicDrugController extends BaseController
-{
-    @Autowired
-    private IEpidemicDrugService epidemicDrugService;
+public class EpidemicDrugController extends BaseController {
+	@Autowired
+	private IEpidemicDrugService epidemicDrugService;
 
-    /**
-     * 查询药品管理列表
-     */
-    @PreAuthorize("@ss.hasPermi('illness:drug:list')")
-    @GetMapping("/list")
-    public TableDataInfo list(EpidemicDrug epidemicDrug)
-    {
-        startPage();
-        List<EpidemicDrug> list = epidemicDrugService.selectEpidemicDrugList(epidemicDrug);
-        return getDataTable(list);
-    }
+	/**
+	 * 查询药品管理列表
+	 */
+	@PreAuthorize("@ss.hasPermi('illness:drug:list')")
+	@GetMapping("/list")
+	public TableDataInfo list(EpidemicDrug epidemicDrug) {
+		startPage();
+		List<EpidemicDrug> list = epidemicDrugService.selectEpidemicDrugList(epidemicDrug);
+		return getDataTable(list);
+	}
 
-    /**
-     * 导出药品管理列表
-     */
-    @PreAuthorize("@ss.hasPermi('illness:drug:export')")
-    @Log(title = "药品管理", businessType = BusinessType.EXPORT)
-    @PostMapping("/export")
-    public void export(HttpServletResponse response, EpidemicDrug epidemicDrug)
-    {
-        List<EpidemicDrug> list = epidemicDrugService.selectEpidemicDrugList(epidemicDrug);
-        ExcelUtil<EpidemicDrug> util = new ExcelUtil<EpidemicDrug>(EpidemicDrug.class);
-        util.exportExcel(response, list, "药品管理数据");
-    }
+	/**
+	 * 导出药品管理列表
+	 */
+	@PreAuthorize("@ss.hasPermi('illness:drug:export')")
+	@Log(title = "药品管理", businessType = BusinessType.EXPORT)
+	@PostMapping("/export")
+	public void export(HttpServletResponse response, EpidemicDrug epidemicDrug) {
+		List<EpidemicDrug> list = epidemicDrugService.selectEpidemicDrugList(epidemicDrug);
+		ExcelUtil<EpidemicDrug> util = new ExcelUtil<EpidemicDrug>(EpidemicDrug.class);
+		util.exportExcel(response, list, "药品管理数据");
+	}
 
-    /**
-     * 获取药品管理详细信息
-     */
-    @PreAuthorize("@ss.hasPermi('illness:drug:query')")
-    @GetMapping(value = "/{drugId}")
-    public AjaxResult getInfo(@PathVariable("drugId") Long drugId)
-    {
-        return AjaxResult.success(epidemicDrugService.selectEpidemicDrugByDrugId(drugId));
-    }
+	/**
+	 * 获取药品管理详细信息
+	 */
+	@PreAuthorize("@ss.hasPermi('illness:drug:query')")
+	@GetMapping(value = "/{drugId}")
+	public AjaxResult getInfo(@PathVariable("drugId") Long drugId) {
+		return AjaxResult.success(epidemicDrugService.selectEpidemicDrugByDrugId(drugId));
+	}
 
-    /**
-     * 新增药品管理
-     */
-    @PreAuthorize("@ss.hasPermi('illness:drug:add')")
-    @Log(title = "药品管理", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody EpidemicDrug epidemicDrug)
-    {
-        return toAjax(epidemicDrugService.insertEpidemicDrug(epidemicDrug));
-    }
+	/**
+	 * 新增药品管理
+	 */
+	@PreAuthorize("@ss.hasPermi('illness:drug:add')")
+	@Log(title = "药品管理", businessType = BusinessType.INSERT)
+	@PostMapping
+	public AjaxResult add(@RequestBody EpidemicDrug epidemicDrug) {
+		return toAjax(epidemicDrugService.insertEpidemicDrug(epidemicDrug));
+	}
 
-    /**
-     * 修改药品管理
-     */
-    @PreAuthorize("@ss.hasPermi('illness:drug:edit')")
-    @Log(title = "药品管理", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody EpidemicDrug epidemicDrug)
-    {
-        return toAjax(epidemicDrugService.updateEpidemicDrug(epidemicDrug));
-    }
+	/**
+	 * 修改药品管理
+	 */
+	@PreAuthorize("@ss.hasPermi('illness:drug:edit')")
+	@Log(title = "药品管理", businessType = BusinessType.UPDATE)
+	@PutMapping
+	public AjaxResult edit(@RequestBody EpidemicDrug epidemicDrug) {
+		return toAjax(epidemicDrugService.updateEpidemicDrug(epidemicDrug));
+	}
 
-    /**
-     * 删除药品管理
-     */
-    @PreAuthorize("@ss.hasPermi('illness:drug:remove')")
-    @Log(title = "药品管理", businessType = BusinessType.DELETE)
+	/**
+	 * 删除药品管理
+	 */
+	@PreAuthorize("@ss.hasPermi('illness:drug:remove')")
+	@Log(title = "药品管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{drugIds}")
-    public AjaxResult remove(@PathVariable Long[] drugIds)
-    {
-        return toAjax(epidemicDrugService.deleteEpidemicDrugByDrugIds(drugIds));
-    }
+	public AjaxResult remove(@PathVariable Long[] drugIds) {
+		return toAjax(epidemicDrugService.deleteEpidemicDrugByDrugIds(drugIds));
+	}
 }
