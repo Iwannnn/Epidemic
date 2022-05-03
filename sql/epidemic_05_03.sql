@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.6 (64 bit)
-MySQL - 8.0.23 : Database - epidemic
+MySQL - 8.0.26 : Database - epidemic
 *********************************************************************
 */
 
@@ -45,23 +45,23 @@ CREATE TABLE `epidemic_case` (
 /*Data for the table `epidemic_case` */
 
 insert  into `epidemic_case`(`case_id`,`patient_id`,`illness_id`,`infected_region_id`,`infected_address`,`is_cure`,`is_hosp`,`is_die`,`infect_time`,`cure_time`,`is_delete`,`create_by`,`create_time`,`update_by`,`update_time`,`remark`) values 
-(1,1,1,1,'aaaaaa',0,1,1,NULL,NULL,0,'',NULL,'',NULL,''),
-(2,2,2,2,'dadadad',1,1,0,NULL,NULL,0,'',NULL,'',NULL,''),
-(3,3,1,4,'dada',1,1,0,NULL,NULL,0,'',NULL,'',NULL,''),
-(4,4,1,2,'fafa',0,0,0,NULL,NULL,0,'',NULL,'',NULL,''),
-(5,5,1,5,'faf',1,0,0,NULL,NULL,0,'',NULL,'',NULL,''),
-(6,6,1,2,'afaf',1,1,0,NULL,NULL,0,'',NULL,'',NULL,''),
-(7,7,1,7,'afaf',1,0,0,NULL,NULL,0,'',NULL,'',NULL,''),
-(8,8,1,9,'eqwr',0,1,1,NULL,NULL,0,'',NULL,'',NULL,''),
-(9,9,1,1,'fwqf',0,1,0,NULL,NULL,0,'',NULL,'',NULL,''),
-(10,10,2,4,'gqgwgr',0,0,0,NULL,NULL,0,'',NULL,'',NULL,''),
-(11,11,2,10,'qfqygq',1,0,0,NULL,NULL,0,'',NULL,'',NULL,''),
-(12,12,2,11,'grhet',1,1,0,NULL,NULL,0,'',NULL,'',NULL,''),
-(13,13,2,9,'grg',1,0,0,NULL,NULL,0,'',NULL,'',NULL,''),
-(14,14,1,10,'fwefew',0,0,1,NULL,NULL,0,'',NULL,'',NULL,''),
-(15,15,1,2,'gege',0,1,1,NULL,NULL,0,'',NULL,'',NULL,''),
-(16,16,1,6,'dqfqw',1,0,0,NULL,NULL,0,'',NULL,'',NULL,''),
-(17,17,1,6,'geaga',1,1,0,NULL,NULL,0,'',NULL,'',NULL,'');
+(1,1,1,1,'aaaaaa',0,1,1,'2022-05-02 10:07:52',NULL,0,'',NULL,'',NULL,''),
+(2,2,2,2,'dadadad',1,1,0,'2022-05-11 10:08:06','2022-05-20 10:08:27',0,'',NULL,'',NULL,''),
+(3,3,1,4,'dada',1,1,0,'2022-05-09 10:08:44','2022-05-12 10:08:56',0,'',NULL,'',NULL,''),
+(4,4,1,2,'fafa',0,0,0,'2022-05-09 10:09:00',NULL,0,'',NULL,'',NULL,''),
+(5,5,1,5,'faf',1,0,0,'2022-05-12 10:09:07','2022-05-20 10:09:11',0,'',NULL,'',NULL,''),
+(6,6,1,2,'afaf',1,1,0,'2022-05-10 10:09:14','2022-05-17 10:09:18',0,'',NULL,'',NULL,''),
+(7,7,1,7,'afaf',1,0,0,'2022-05-07 10:09:22','2022-05-16 10:09:27',0,'',NULL,'',NULL,''),
+(8,8,1,9,'eqwr',0,1,1,'2022-05-09 10:09:32',NULL,0,'',NULL,'',NULL,''),
+(9,9,1,1,'fwqf',0,1,0,'2022-05-09 10:09:38',NULL,0,'',NULL,'',NULL,''),
+(10,10,2,4,'gqgwgr',0,0,0,'2022-05-02 10:09:43',NULL,0,'',NULL,'',NULL,''),
+(11,11,2,10,'qfqygq',1,0,0,'2022-05-19 10:09:47','2022-05-23 10:09:52',0,'',NULL,'',NULL,''),
+(12,12,2,11,'grhet',1,1,0,'2022-05-09 10:09:57','2022-05-17 10:10:00',0,'',NULL,'',NULL,''),
+(13,13,2,9,'grg',1,0,0,'2022-05-20 10:10:04','2022-05-23 10:10:06',0,'',NULL,'',NULL,''),
+(14,14,1,10,'fwefew',0,0,1,'2022-05-12 10:10:13',NULL,0,'',NULL,'',NULL,''),
+(15,15,1,2,'gege',0,1,1,'2022-05-17 10:10:16',NULL,0,'',NULL,'',NULL,''),
+(16,16,1,6,'dqfqw',1,0,0,'2022-05-16 10:10:20','2022-05-18 10:10:22',0,'',NULL,'',NULL,''),
+(17,17,1,6,'geaga',1,1,0,'2022-05-11 10:10:25','2022-05-18 10:10:28',0,'',NULL,'',NULL,'');
 
 /*Table structure for table `epidemic_case_hospital` */
 
@@ -502,7 +502,7 @@ insert  into `epidemic_patient`(`patient_id`,`patient_name`,`patient_sex`,`avata
 (11,'K_patient','0','K_avatar',173,65,35,'K_phone',9,'K_address',88,0,'',NULL,'',NULL,''),
 (12,'L_patient','0','L_avatar',167,47,23,'L_phone',10,'L_address',48,0,'',NULL,'',NULL,''),
 (13,'M_patient','1','M_avatar',157,67,38,'M_phone',11,'M_address',39,0,'',NULL,'',NULL,''),
-(14,'N_patient','1','N_avatar',176,65,30,'N_phone',12,'N_address',20,0,'',NULL,'',NULL,''),
+(14,'N_patient','1','N_avatar',176,65,30,'N_phone',11,'N_address',20,0,'',NULL,'',NULL,''),
 (15,'O_patient','0','O_avatar',156,46,27,'O_phone',5,'O_address',40,0,'',NULL,'',NULL,''),
 (16,'P_patient','0','P_avatar',157,52,29,'P_phone',7,'P_address',29,0,'',NULL,'',NULL,''),
 (17,'Q_patient','0','Q_avatar',176,55,22,'Q_phone',6,'Q_address',29,0,'',NULL,'',NULL,'');
@@ -1293,7 +1293,7 @@ CREATE TABLE `sys_logininfor` (
   `msg` varchar(255) DEFAULT '' COMMENT '提示消息',
   `login_time` datetime DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统访问记录';
 
 /*Data for the table `sys_logininfor` */
 
@@ -1308,7 +1308,8 @@ insert  into `sys_logininfor`(`info_id`,`user_name`,`ipaddr`,`login_location`,`b
 (107,'admin','127.0.0.1','内网IP','Chrome 10','Windows 10','0','登录成功','2022-04-26 21:27:00'),
 (108,'admin','127.0.0.1','内网IP','Chrome 10','Windows 10','0','登录成功','2022-04-26 22:46:19'),
 (109,'admin','127.0.0.1','内网IP','Chrome 10','Windows 10','0','登录成功','2022-05-03 07:28:57'),
-(110,'admin','127.0.0.1','内网IP','Chrome 10','Windows 10','0','登录成功','2022-05-03 08:57:48');
+(110,'admin','127.0.0.1','内网IP','Chrome 10','Windows 10','0','登录成功','2022-05-03 08:57:48'),
+(111,'admin','127.0.0.1','内网IP','Chrome 10','Windows 10','0','登录成功','2022-05-03 11:32:52');
 
 /*Table structure for table `sys_menu` */
 
@@ -1335,7 +1336,7 @@ CREATE TABLE `sys_menu` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2398 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=2404 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
 
 /*Data for the table `sys_menu` */
 
@@ -1556,7 +1557,12 @@ insert  into `sys_menu`(`menu_id`,`menu_name`,`parent_id`,`order_num`,`path`,`co
 (2394,'传播管理新增',2392,2,'#','',NULL,1,0,'F','0','0','illness:transmission:add','#','admin','2022-04-26 22:24:51','',NULL,''),
 (2395,'传播管理修改',2392,3,'#','',NULL,1,0,'F','0','0','illness:transmission:edit','#','admin','2022-04-26 22:24:51','',NULL,''),
 (2396,'传播管理删除',2392,4,'#','',NULL,1,0,'F','0','0','illness:transmission:remove','#','admin','2022-04-26 22:24:51','',NULL,''),
-(2397,'传播管理导出',2392,5,'#','',NULL,1,0,'F','0','0','illness:transmission:export','#','admin','2022-04-26 22:24:51','',NULL,'');
+(2397,'传播管理导出',2392,5,'#','',NULL,1,0,'F','0','0','illness:transmission:export','#','admin','2022-04-26 22:24:51','',NULL,''),
+(2398,'数据分析',0,1,'analysis',NULL,NULL,1,0,'M','0','0','','date','admin','2022-05-03 09:45:01','admin','2022-05-03 09:59:18',''),
+(2399,'疾病总死亡率分析',2398,1,'illness_death','analysis/illness_death/index',NULL,1,0,'C','0','0',NULL,'bug','admin','2022-05-03 09:47:49','',NULL,''),
+(2400,'疾病地区密度分析',2398,2,'illness_region','analysis/illness_region/index',NULL,1,0,'C','0','0',NULL,'excel','admin','2022-05-03 09:51:19','',NULL,''),
+(2402,'疾病治愈时间分析',2398,4,'illness_cureTime','analysis/illness_cureTime/index',NULL,1,0,'C','0','0',NULL,'number','admin','2022-05-03 10:09:47','',NULL,''),
+(2403,'疾病患者身体状况分析',2398,3,'illness_patient','analysis/illness_patient/index',NULL,1,0,'C','0','0',NULL,'education','admin','2022-05-03 10:11:01','',NULL,'');
 
 /*Table structure for table `sys_notice` */
 
@@ -1604,7 +1610,7 @@ CREATE TABLE `sys_oper_log` (
   `error_msg` varchar(2000) DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=341 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=351 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='操作日志记录';
 
 /*Data for the table `sys_oper_log` */
 
@@ -1849,7 +1855,17 @@ insert  into `sys_oper_log`(`oper_id`,`title`,`business_type`,`method`,`request_
 (337,'代码生成',2,'zstu.epidemic.generator.controller.GenController.synchDb()','GET',1,'admin',NULL,'/tool/gen/synchDb/epidemic_expert','127.0.0.1','内网IP','{tableName=epidemic_expert}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 08:59:50'),
 (338,'代码生成',2,'zstu.epidemic.generator.controller.GenController.synchDb()','GET',1,'admin',NULL,'/tool/gen/synchDb/epidemic_drug_illness','127.0.0.1','内网IP','{tableName=epidemic_drug_illness}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 09:00:38'),
 (339,'代码生成',2,'zstu.epidemic.generator.controller.GenController.synchDb()','GET',1,'admin',NULL,'/tool/gen/synchDb/epidemic_drug','127.0.0.1','内网IP','{tableName=epidemic_drug}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 09:08:06'),
-(340,'代码生成',2,'zstu.epidemic.generator.controller.GenController.synchDb()','GET',1,'admin',NULL,'/tool/gen/synchDb/epidemic_drug','127.0.0.1','内网IP','{tableName=epidemic_drug}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 09:12:00');
+(340,'代码生成',2,'zstu.epidemic.generator.controller.GenController.synchDb()','GET',1,'admin',NULL,'/tool/gen/synchDb/epidemic_drug','127.0.0.1','内网IP','{tableName=epidemic_drug}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 09:12:00'),
+(341,'菜单管理',1,'zstu.epidemic.web.controller.system.SysMenuController.add()','POST',1,'admin',NULL,'/system/menu','127.0.0.1','内网IP','{\"visible\":\"0\",\"icon\":\"date\",\"orderNum\":4,\"menuName\":\"数据分析\",\"params\":{},\"parentId\":0,\"isCache\":\"0\",\"path\":\"analysis\",\"createBy\":\"admin\",\"children\":[],\"isFrame\":\"1\",\"menuType\":\"M\",\"status\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 09:45:01'),
+(342,'菜单管理',1,'zstu.epidemic.web.controller.system.SysMenuController.add()','POST',1,'admin',NULL,'/system/menu','127.0.0.1','内网IP','{\"visible\":\"0\",\"icon\":\"bug\",\"orderNum\":1,\"menuName\":\"疾病总死亡率分析\",\"params\":{},\"parentId\":2398,\"isCache\":\"0\",\"path\":\"illness_death\",\"component\":\"/analysis/illness_death/index\",\"createBy\":\"admin\",\"children\":[],\"isFrame\":\"1\",\"menuType\":\"C\",\"status\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 09:47:50'),
+(343,'菜单管理',1,'zstu.epidemic.web.controller.system.SysMenuController.add()','POST',1,'admin',NULL,'/system/menu','127.0.0.1','内网IP','{\"visible\":\"0\",\"icon\":\"excel\",\"orderNum\":2,\"menuName\":\"疾病地区密度分析\",\"params\":{},\"parentId\":2398,\"isCache\":\"0\",\"path\":\"illness_region\",\"component\":\"/analysis/illness_region/index\",\"createBy\":\"admin\",\"children\":[],\"isFrame\":\"1\",\"menuType\":\"C\",\"status\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 09:51:21'),
+(344,'菜单管理',2,'zstu.epidemic.web.controller.system.SysMenuController.edit()','PUT',1,'admin',NULL,'/system/menu','127.0.0.1','内网IP','{\"visible\":\"0\",\"icon\":\"date\",\"orderNum\":3,\"menuName\":\"数据分析\",\"params\":{},\"parentId\":0,\"isCache\":\"0\",\"path\":\"analysis\",\"children\":[],\"createTime\":1651542301000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2398,\"menuType\":\"M\",\"perms\":\"\",\"status\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 09:58:20'),
+(345,'菜单管理',2,'zstu.epidemic.web.controller.system.SysMenuController.edit()','PUT',1,'admin',NULL,'/system/menu','127.0.0.1','内网IP','{\"visible\":\"0\",\"icon\":\"date\",\"orderNum\":2,\"menuName\":\"数据分析\",\"params\":{},\"parentId\":0,\"isCache\":\"0\",\"path\":\"analysis\",\"children\":[],\"createTime\":1651542301000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2398,\"menuType\":\"M\",\"perms\":\"\",\"status\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 09:59:01'),
+(346,'菜单管理',2,'zstu.epidemic.web.controller.system.SysMenuController.edit()','PUT',1,'admin',NULL,'/system/menu','127.0.0.1','内网IP','{\"visible\":\"0\",\"icon\":\"date\",\"orderNum\":1,\"menuName\":\"数据分析\",\"params\":{},\"parentId\":0,\"isCache\":\"0\",\"path\":\"analysis\",\"children\":[],\"createTime\":1651542301000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2398,\"menuType\":\"M\",\"perms\":\"\",\"status\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 09:59:18'),
+(347,'菜单管理',1,'zstu.epidemic.web.controller.system.SysMenuController.add()','POST',1,'admin',NULL,'/system/menu','127.0.0.1','内网IP','{\"visible\":\"0\",\"icon\":\"documentation\",\"orderNum\":3,\"menuName\":\"疾病患者身体数据分析\",\"params\":{},\"parentId\":2,\"isCache\":\"0\",\"path\":\"illness_patient\",\"component\":\"analysis/illness_patient/index\",\"createBy\":\"admin\",\"children\":[],\"isFrame\":\"1\",\"menuType\":\"C\",\"status\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 10:08:03'),
+(348,'菜单管理',1,'zstu.epidemic.web.controller.system.SysMenuController.add()','POST',1,'admin',NULL,'/system/menu','127.0.0.1','内网IP','{\"visible\":\"0\",\"icon\":\"number\",\"orderNum\":4,\"menuName\":\"疾病治愈时间分析\",\"params\":{},\"parentId\":2398,\"isCache\":\"0\",\"path\":\"illness_cureTime\",\"component\":\"analysis/illness_cureTime/index\",\"createBy\":\"admin\",\"children\":[],\"isFrame\":\"1\",\"menuType\":\"C\",\"status\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 10:09:49'),
+(349,'菜单管理',1,'zstu.epidemic.web.controller.system.SysMenuController.add()','POST',1,'admin',NULL,'/system/menu','127.0.0.1','内网IP','{\"visible\":\"0\",\"icon\":\"education\",\"orderNum\":3,\"menuName\":\"疾病患者身体状况分析\",\"params\":{},\"parentId\":2398,\"isCache\":\"0\",\"path\":\"illness_patient\",\"component\":\"analysis/illness_patient/index\",\"createBy\":\"admin\",\"children\":[],\"isFrame\":\"1\",\"menuType\":\"C\",\"status\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 10:11:02'),
+(350,'菜单管理',3,'zstu.epidemic.web.controller.system.SysMenuController.remove()','DELETE',1,'admin',NULL,'/system/menu/2401','127.0.0.1','内网IP','{menuId=2401}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2022-05-03 10:11:09');
 
 /*Table structure for table `sys_post` */
 
@@ -2050,7 +2066,7 @@ CREATE TABLE `sys_user` (
 /*Data for the table `sys_user` */
 
 insert  into `sys_user`(`user_id`,`dept_id`,`user_name`,`nick_name`,`user_type`,`email`,`phonenumber`,`sex`,`avatar`,`password`,`status`,`del_flag`,`login_ip`,`login_date`,`create_by`,`create_time`,`update_by`,`update_time`,`remark`) values 
-(1,103,'admin','熊猫圈里的老鼠屎','00','123@163.com','15888888888','0','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2022-05-03 08:57:48','admin','2022-03-31 22:59:02','','2022-05-03 08:57:48','管理员'),
+(1,103,'admin','熊猫圈里的老鼠屎','00','123@163.com','15888888888','0','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2022-05-03 11:32:53','admin','2022-03-31 22:59:02','','2022-05-03 11:32:52','管理员'),
 (2,105,'ry','若依','00','ry@qq.com','15666666666','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2022-03-31 22:59:02','admin','2022-03-31 22:59:02','',NULL,'测试员');
 
 /*Table structure for table `sys_user_post` */
