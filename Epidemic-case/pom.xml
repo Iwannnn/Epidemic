@@ -17,10 +17,11 @@
 
     <dependencies>
 
-            <dependency>
-                <groupId>zstu.epidemic</groupId>
-                <artifactId>Epidemic-common</artifactId>
-            </dependency>
+        <dependency>
+            <groupId>zstu.epidemic</groupId>
+            <artifactId>Epidemic-common</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

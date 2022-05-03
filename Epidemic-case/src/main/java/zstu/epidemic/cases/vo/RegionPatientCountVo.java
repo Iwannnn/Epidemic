@@ -1,9 +1,13 @@
 package zstu.epidemic.cases.vo;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class RegionPatientCountVo {
-    Long regionId;
-    int count;
+public class RegionPatientCountVo implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	Long regionId;
+	int count;
 }
