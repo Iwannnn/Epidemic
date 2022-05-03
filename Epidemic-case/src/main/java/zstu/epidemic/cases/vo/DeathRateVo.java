@@ -1,7 +1,6 @@
 package zstu.epidemic.cases.vo;
 
 import lombok.Data;
-import zstu.epidemic.common.annotation.Excel;
 
 @Data
 public class DeathRateVo {

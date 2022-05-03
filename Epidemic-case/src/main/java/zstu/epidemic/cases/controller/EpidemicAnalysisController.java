@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import zstu.epidemic.cases.domain.EpidemicCase;
 import zstu.epidemic.cases.domain.EpidemicPatient;
 import zstu.epidemic.cases.service.EpidemicAnalysisService;
+import zstu.epidemic.cases.service.IEpidemicPatientService;
+import zstu.epidemic.cases.service.impl.EpidemicPatientServiceImpl;
 import zstu.epidemic.cases.vo.CureTimeVo;
 import zstu.epidemic.cases.vo.DeathRateVo;
 import zstu.epidemic.cases.vo.PatientDataVo;
@@ -24,6 +26,8 @@ import java.util.HashMap;
 public class EpidemicAnalysisController {
     @Autowired
     private EpidemicAnalysisService epidemicAnalysisService;
+    @Autowired
+    private IEpidemicPatientService epidemicPatientService;
 
     //get_death_rate
     @GetMapping("get_death_rate")
@@ -84,15 +88,25 @@ public class EpidemicAnalysisController {
     @GetMapping("get_patient_info")
     @Cacheable(value = "get_patient_info")
     public AjaxResult get_patient_info(String illnessName){
-        ArrayList<PatientDataVo> list = epidemicAnalysisService.get_patient_info(illnessName);
-        return AjaxResult.success("patientDataList", list);
+        ArrayList<EpidemicPatient> list = epidemicPatientService.getPatientListByIllnessName(illnessName);
+        ArrayList<PatientDataVo> finalList = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            EpidemicPatient patient = list.get(i);
+            PatientDataVo patientDataVo = new PatientDataVo();
+            patientDataVo.setHeight(patient.getHeight());
+            patientDataVo.setWeight(patient.getWeight());
+            patientDataVo.setFat(patient.getFat());
+            patientDataVo.setAge(patient.getPatientAge());
+            finalList.add(patientDataVo);
+        }
+        return AjaxResult.success("patientDataList", finalList);
     }
 
     //get_region_info
     @GetMapping("get_region_info")
     @Cacheable(value = "get_region_info")
     public AjaxResult get_region_info(String illnessName){
-        ArrayList<EpidemicPatient> patientList = epidemicAnalysisService.getPatientListByIllnessName(illnessName);
+        ArrayList<EpidemicPatient> patientList = epidemicPatientService.getPatientListByIllnessName(illnessName);
         ArrayList<RegionPatientCountVo> finalList=new ArrayList<>();
         //<regionID,peopleCount>
         HashMap<Long,Integer> map=new HashMap<>();

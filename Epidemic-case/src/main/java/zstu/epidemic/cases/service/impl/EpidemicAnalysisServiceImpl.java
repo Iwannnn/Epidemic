@@ -21,12 +21,5 @@ public class EpidemicAnalysisServiceImpl implements EpidemicAnalysisService {
     public ArrayList<EpidemicCase> getCaseListByIllnessName(String illness_name){
         return epidemicAnalysisMapper.getCaseListByIllnessName(illness_name);
     }
-    @Override
-    public ArrayList<PatientDataVo> get_patient_info(String illness_name){
-        return epidemicAnalysisMapper.get_patient_info(illness_name);
-    }
-    @Override
-    public ArrayList<EpidemicPatient> getPatientListByIllnessName(String illness_name){
-        return epidemicAnalysisMapper.getPatientListByIllnessName(illness_name);
-    }
+
 }

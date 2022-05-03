@@ -12,6 +12,4 @@ import java.util.List;
 @Repository
 public interface EpidemicAnalysisMapper {
     ArrayList<EpidemicCase> getCaseListByIllnessName(String illness_name);
-    ArrayList<PatientDataVo> get_patient_info(String illness_name);
-    ArrayList<EpidemicPatient> getPatientListByIllnessName(String illness_name);
 }
