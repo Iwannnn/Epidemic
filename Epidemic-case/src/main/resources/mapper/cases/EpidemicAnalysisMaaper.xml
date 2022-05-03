@@ -23,6 +23,7 @@
         <result property="remark"    column="remark"    />
     </resultMap>
 
+
     <resultMap type="PatientDataVo" id="PatientDataResult">
         <result property="height"    column="height"    />
         <result property="weight"    column="weight"    />
@@ -59,7 +60,7 @@
     <select id="get_patient_info" parameterType="java.lang.String" resultMap="PatientDataResult">
         select height,weight,fat,`patient_age` from `epidemic_patient` where `patient_id` in (
             select `patient_id` from `epidemic_case` where `illness_id` in (
-                select `illness_id` from `epidemic_illness` where `illness_name`=#{name}
+                select `illness_id` from `epidemic_illness` where `illness_name`=#{illness_name}
             )
         )
     </select>
@@ -67,7 +68,7 @@
     <select id="getPatientListByIllnessName" parameterType="java.lang.String" resultMap="EpidemicPatientResult">
         select * from `epidemic_patient` where `patient_id` in (
             select `patient_id` from `epidemic_case` where `illness_id` in (
-                select `illness_id` from `epidemic_illness` where `illness_name`=#{name}
+                select `illness_id` from `epidemic_illness` where `illness_name`=#{illness_name}
             )
         )
     </select>
