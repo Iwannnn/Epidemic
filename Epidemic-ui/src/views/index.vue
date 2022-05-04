@@ -1,5 +1,7 @@
 <template>
-    <div class="app-container home">index page</div>
+    <div class="app-container home">
+        <img width="100%" src="@/assets/images/index.jpg" />
+    </div>
 </template>
 
 <script>
