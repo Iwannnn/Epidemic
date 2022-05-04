@@ -138,4 +138,18 @@ public class EpidemicAnalysisController extends BaseController {
 		return AjaxResult.success("success", epidemicAnalysisService.getRegionInfo(illnessName));
 	}
 
+	@GetMapping("get_drug/{illnessName}")
+	public AjaxResult get_drug(@PathVariable String illnessName) {
+		return AjaxResult.success("success", epidemicAnalysisService.getDrug(illnessName));
+	}
+
+	@GetMapping("get_pat_history/{patientName}")
+	public AjaxResult get_pat_history(@PathVariable String patientName) {
+		return AjaxResult.success("success", epidemicAnalysisService.getPatHistory(patientName));
+	}
+
+	@GetMapping("get_seq_comp/{illnessName}")
+	public AjaxResult get_seq_comp(@PathVariable String illnessName) {
+		return AjaxResult.success("success", epidemicAnalysisService.getSeqComp(illnessName));
+	}
 }

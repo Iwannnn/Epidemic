@@ -71,5 +71,66 @@
 		)
 	</select>
 
+	<select id="getDrug" parameterType="java.lang.String" resultType="zstu.epidemic.cases.vo.DrugVo">
+		SELECT drug_id,drug_name,factory.factory_name,company.company_name
+		FROM `epidemic_drug` AS drug ,`epidemic_factory` AS factory,`epidemic_company` AS company
+		WHERE drug.drug_id IN (
+			SELECT drug_id 
+			FROM `epidemic_drug_illness`
+			WHERE disease_id=(
+				SELECT `illness_id` FROM `epidemic_illness` WHERE `illness_name`=#{illness_name}
+			)
+		) AND factory_id = (
+			SELECT fact_id
+			FROM `epidemic_drug_factory`
+			WHERE medicine_id = (
+				SELECT drug_id 
+				FROM `epidemic_drug_illness`
+				WHERE disease_id=(
+					SELECT `illness_id` FROM `epidemic_illness` WHERE `illness_name`=#{illness_name}
+				)
+			)
+		) AND company_id =(
+			SELECT comp_id
+			FROM `epidemic_drug_company`
+			WHERE medicine_id = (
+				SELECT drug_id 
+				FROM `epidemic_drug_illness`
+				WHERE disease_id=(
+					SELECT `illness_id` FROM `epidemic_illness` WHERE `illness_name`=#{illness_name}
+				)
+			)
+		)
+	</select>
 
+	<select id="getPatHistory"  parameterType="java.lang.String" resultType="zstu.epidemic.cases.vo.PatHistoryVo">
+		SELECT illness_id,illness_name
+		FROM `epidemic_illness`
+		WHERE illness_id IN (
+			SELECT disease_id
+			FROM `epidemic_patient_history`
+			WHERE pat_id = (
+				SELECT `patient_id` FROM `epidemic_patient` WHERE `patient_name`=#{patient_name}
+			)
+		)
+	</select>
+
+
+	<select id="getSeqComp" parameterType="java.lang.String" resultType="zstu.epidemic.cases.vo.SeqCompVo">
+		SELECT illness_id,illness_name
+		FROM `epidemic_illness`
+		WHERE illness_id IN (
+			SELECT comp_id
+			FROM `epidemic_complication`
+			WHERE infectious_id IN (
+				SELECT `illness_id` FROM `epidemic_illness` WHERE `illness_name`=#{illness_name}
+			)
+		) OR illness_id IN (
+			SELECT seq_id
+			FROM `epidemic_sequelae`
+			WHERE infect_id IN (
+				SELECT `illness_id` FROM `epidemic_illness` WHERE `illness_name`=#{illness_name}
+			)
+		)
+	</select>
 </mapper>

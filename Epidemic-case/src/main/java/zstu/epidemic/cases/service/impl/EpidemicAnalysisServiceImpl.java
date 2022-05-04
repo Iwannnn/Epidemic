@@ -7,8 +7,11 @@ import zstu.epidemic.cases.mapper.EpidemicAnalysisMapper;
 import zstu.epidemic.cases.service.EpidemicAnalysisService;
 import zstu.epidemic.cases.vo.DeathRateVo;
 import zstu.epidemic.cases.vo.DiffTimeVo;
+import zstu.epidemic.cases.vo.DrugVo;
+import zstu.epidemic.cases.vo.PatHistoryVo;
 import zstu.epidemic.cases.vo.PatientDataVo;
 import zstu.epidemic.cases.vo.RegionPatientCountVo;
+import zstu.epidemic.cases.vo.SeqCompVo;
 
 import java.util.ArrayList;
 
@@ -40,5 +43,20 @@ public class EpidemicAnalysisServiceImpl implements EpidemicAnalysisService {
 	@Override
 	public ArrayList<PatientDataVo> getPatientInfo(String illness_name) {
 		return epidemicAnalysisMapper.getPatientInfo(illness_name);
+	}
+
+	@Override
+	public ArrayList<DrugVo> getDrug(String illness_name) {
+		return epidemicAnalysisMapper.getDrug(illness_name);
+	}
+
+	@Override
+	public ArrayList<PatHistoryVo> getPatHistory(String patient_name) {
+		return epidemicAnalysisMapper.getPatHistory(patient_name);
+	}
+
+	@Override
+	public ArrayList<SeqCompVo> getSeqComp(String illness_name) {
+		return epidemicAnalysisMapper.getSeqComp(illness_name);
 	}
 }

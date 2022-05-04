@@ -35,3 +35,30 @@ export function query_region_info(illness_name) {
 
 	})
 }
+
+
+export function query_drug(illness_name) {
+	return request({
+		url: '/cases/analysis/get_drug/' + illness_name,
+		method: 'get',
+
+	})
+}
+
+export function query_pat_history(illness_name) {
+	return request({
+		url: '/cases/analysis/get_pat_history/' + illness_name,
+		method: 'get',
+
+	})
+}
+
+
+export function query_seq_comp(illness_name) {
+	return request({
+		url: '/cases/analysis/get_seq_comp/' + illness_name,
+		method: 'get',
+
+	})
+}
+
