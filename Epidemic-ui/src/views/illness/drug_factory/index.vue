@@ -1,17 +1,17 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="工厂id" prop="factoryId">
+      <el-form-item label="工厂id" prop="factId">
         <el-input
-          v-model="queryParams.factoryId"
+          v-model="queryParams.factId"
           placeholder="请输入工厂id"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="药物id" prop="drugId">
+      <el-form-item label="药物id" prop="medicineId">
         <el-input
-          v-model="queryParams.drugId"
+          v-model="queryParams.medicineId"
           placeholder="请输入药物id"
           clearable
           @keyup.enter.native="handleQuery"
@@ -71,8 +71,9 @@
 
     <el-table v-loading="loading" :data="drug_factoryList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="工厂id" align="center" prop="factoryId" />
-      <el-table-column label="药物id" align="center" prop="drugId" />
+      <el-table-column label="药品工厂id" align="center" prop="drugFactoryId" />
+      <el-table-column label="工厂id" align="center" prop="factId" />
+      <el-table-column label="药物id" align="center" prop="medicineId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -104,6 +105,12 @@
     <!-- 添加或修改工厂管理对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="工厂id" prop="factId">
+          <el-input v-model="form.factId" placeholder="请输入工厂id" />
+        </el-form-item>
+        <el-form-item label="药物id" prop="medicineId">
+          <el-input v-model="form.medicineId" placeholder="请输入药物id" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -142,13 +149,19 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        factoryId: null,
-        drugId: null
+        factId: null,
+        medicineId: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
+        factId: [
+          { required: true, message: "工厂id不能为空", trigger: "blur" }
+        ],
+        medicineId: [
+          { required: true, message: "药物id不能为空", trigger: "blur" }
+        ]
       }
     };
   },
@@ -173,8 +186,9 @@ export default {
     // 表单重置
     reset() {
       this.form = {
-        factoryId: null,
-        drugId: null
+        drugFactoryId: null,
+        factId: null,
+        medicineId: null
       };
       this.resetForm("form");
     },
@@ -190,7 +204,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.factoryId)
+      this.ids = selection.map(item => item.drugFactoryId)
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
@@ -203,8 +217,8 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const factoryId = row.factoryId || this.ids
-      getDrug_factory(factoryId).then(response => {
+      const drugFactoryId = row.drugFactoryId || this.ids
+      getDrug_factory(drugFactoryId).then(response => {
         this.form = response.data;
         this.open = true;
         this.title = "修改工厂管理";
@@ -214,7 +228,7 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.factoryId != null) {
+          if (this.form.drugFactoryId != null) {
             updateDrug_factory(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
@@ -232,9 +246,9 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const factoryIds = row.factoryId || this.ids;
-      this.$modal.confirm('是否确认删除工厂管理编号为"' + factoryIds + '"的数据项？').then(function() {
-        return delDrug_factory(factoryIds);
+      const drugFactoryIds = row.drugFactoryId || this.ids;
+      this.$modal.confirm('是否确认删除工厂管理编号为"' + drugFactoryIds + '"的数据项？').then(function() {
+        return delDrug_factory(drugFactoryIds);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");

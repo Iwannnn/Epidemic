@@ -9,44 +9,57 @@ import zstu.epidemic.common.core.domain.BaseEntity;
  * 后遗症对象 epidemic_sequelae
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 public class EpidemicSequelae extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
+    /** 疾病后遗症id */
+    private Long illnessSeqId;
+
     /** 后遗症id */
     @Excel(name = "后遗症id")
-    private Long sequelaeId;
+    private Long seqId;
 
     /** 传染病id（引发） */
     @Excel(name = "传染病id", readConverterExp = "引=发")
-    private Long infectiousId;
+    private Long infectId;
 
-    public void setSequelaeId(Long sequelaeId) 
+    public void setIllnessSeqId(Long illnessSeqId) 
     {
-        this.sequelaeId = sequelaeId;
+        this.illnessSeqId = illnessSeqId;
     }
 
-    public Long getSequelaeId() 
+    public Long getIllnessSeqId() 
     {
-        return sequelaeId;
+        return illnessSeqId;
     }
-    public void setInfectiousId(Long infectiousId) 
+    public void setSeqId(Long seqId) 
     {
-        this.infectiousId = infectiousId;
+        this.seqId = seqId;
     }
 
-    public Long getInfectiousId() 
+    public Long getSeqId() 
     {
-        return infectiousId;
+        return seqId;
+    }
+    public void setInfectId(Long infectId) 
+    {
+        this.infectId = infectId;
+    }
+
+    public Long getInfectId() 
+    {
+        return infectId;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("sequelaeId", getSequelaeId())
-            .append("infectiousId", getInfectiousId())
+            .append("illnessSeqId", getIllnessSeqId())
+            .append("seqId", getSeqId())
+            .append("infectId", getInfectId())
             .toString();
     }
 }

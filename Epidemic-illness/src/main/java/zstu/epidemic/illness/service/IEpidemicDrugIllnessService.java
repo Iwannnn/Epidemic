@@ -7,17 +7,17 @@ import zstu.epidemic.illness.domain.EpidemicDrugIllness;
  * 疾病药品Service接口
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 public interface IEpidemicDrugIllnessService 
 {
     /**
      * 查询疾病药品
      * 
-     * @param drugId 疾病药品主键
+     * @param drugIllnessId 疾病药品主键
      * @return 疾病药品
      */
-    public EpidemicDrugIllness selectEpidemicDrugIllnessByDrugId(Long drugId);
+    public EpidemicDrugIllness selectEpidemicDrugIllnessByDrugIllnessId(Long drugIllnessId);
 
     /**
      * 查询疾病药品列表
@@ -46,16 +46,16 @@ public interface IEpidemicDrugIllnessService
     /**
      * 批量删除疾病药品
      * 
-     * @param drugIds 需要删除的疾病药品主键集合
+     * @param drugIllnessIds 需要删除的疾病药品主键集合
      * @return 结果
      */
-    public int deleteEpidemicDrugIllnessByDrugIds(Long[] drugIds);
+    public int deleteEpidemicDrugIllnessByDrugIllnessIds(Long[] drugIllnessIds);
 
     /**
      * 删除疾病药品信息
      * 
-     * @param drugId 疾病药品主键
+     * @param drugIllnessId 疾病药品主键
      * @return 结果
      */
-    public int deleteEpidemicDrugIllnessByDrugId(Long drugId);
+    public int deleteEpidemicDrugIllnessByDrugIllnessId(Long drugIllnessId);
 }

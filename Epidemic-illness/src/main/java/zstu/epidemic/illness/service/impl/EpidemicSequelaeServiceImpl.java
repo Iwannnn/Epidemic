@@ -11,7 +11,7 @@ import zstu.epidemic.illness.service.IEpidemicSequelaeService;
  * 后遗症Service业务层处理
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @Service
 public class EpidemicSequelaeServiceImpl implements IEpidemicSequelaeService 
@@ -22,13 +22,13 @@ public class EpidemicSequelaeServiceImpl implements IEpidemicSequelaeService
     /**
      * 查询后遗症
      * 
-     * @param sequelaeId 后遗症主键
+     * @param illnessSeqId 后遗症主键
      * @return 后遗症
      */
     @Override
-    public EpidemicSequelae selectEpidemicSequelaeBySequelaeId(Long sequelaeId)
+    public EpidemicSequelae selectEpidemicSequelaeByIllnessSeqId(Long illnessSeqId)
     {
-        return epidemicSequelaeMapper.selectEpidemicSequelaeBySequelaeId(sequelaeId);
+        return epidemicSequelaeMapper.selectEpidemicSequelaeByIllnessSeqId(illnessSeqId);
     }
 
     /**
@@ -70,24 +70,24 @@ public class EpidemicSequelaeServiceImpl implements IEpidemicSequelaeService
     /**
      * 批量删除后遗症
      * 
-     * @param sequelaeIds 需要删除的后遗症主键
+     * @param illnessSeqIds 需要删除的后遗症主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicSequelaeBySequelaeIds(Long[] sequelaeIds)
+    public int deleteEpidemicSequelaeByIllnessSeqIds(Long[] illnessSeqIds)
     {
-        return epidemicSequelaeMapper.deleteEpidemicSequelaeBySequelaeIds(sequelaeIds);
+        return epidemicSequelaeMapper.deleteEpidemicSequelaeByIllnessSeqIds(illnessSeqIds);
     }
 
     /**
      * 删除后遗症信息
      * 
-     * @param sequelaeId 后遗症主键
+     * @param illnessSeqId 后遗症主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicSequelaeBySequelaeId(Long sequelaeId)
+    public int deleteEpidemicSequelaeByIllnessSeqId(Long illnessSeqId)
     {
-        return epidemicSequelaeMapper.deleteEpidemicSequelaeBySequelaeId(sequelaeId);
+        return epidemicSequelaeMapper.deleteEpidemicSequelaeByIllnessSeqId(illnessSeqId);
     }
 }

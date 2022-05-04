@@ -5,53 +5,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="zstu.epidemic.illness.mapper.EpidemicPassageIllnessMapper">
     
     <resultMap type="EpidemicPassageIllness" id="EpidemicPassageIllnessResult">
-        <result property="passageId"    column="passage_id"    />
-        <result property="illnessId"    column="illness_id"    />
+        <result property="passageIllnessId"    column="passage_illness_id"    />
+        <result property="passId"    column="pass_id"    />
+        <result property="infectId"    column="infect_id"    />
     </resultMap>
 
     <sql id="selectEpidemicPassageIllnessVo">
-        select passage_id, illness_id from epidemic_passage_illness
+        select passage_illness_id, pass_id, infect_id from epidemic_passage_illness
     </sql>
 
     <select id="selectEpidemicPassageIllnessList" parameterType="EpidemicPassageIllness" resultMap="EpidemicPassageIllnessResult">
         <include refid="selectEpidemicPassageIllnessVo"/>
         <where>  
-            <if test="passageId != null "> and passage_id = #{passageId}</if>
-            <if test="illnessId != null "> and illness_id = #{illnessId}</if>
+            <if test="passId != null "> and pass_id = #{passId}</if>
+            <if test="infectId != null "> and infect_id = #{infectId}</if>
         </where>
     </select>
     
-    <select id="selectEpidemicPassageIllnessByPassageId" parameterType="Long" resultMap="EpidemicPassageIllnessResult">
+    <select id="selectEpidemicPassageIllnessByPassageIllnessId" parameterType="Long" resultMap="EpidemicPassageIllnessResult">
         <include refid="selectEpidemicPassageIllnessVo"/>
-        where passage_id = #{passageId}
+        where passage_illness_id = #{passageIllnessId}
     </select>
         
-    <insert id="insertEpidemicPassageIllness" parameterType="EpidemicPassageIllness" useGeneratedKeys="true" keyProperty="passageId">
+    <insert id="insertEpidemicPassageIllness" parameterType="EpidemicPassageIllness" useGeneratedKeys="true" keyProperty="passageIllnessId">
         insert into epidemic_passage_illness
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="illnessId != null">illness_id,</if>
+            <if test="passId != null">pass_id,</if>
+            <if test="infectId != null">infect_id,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="illnessId != null">#{illnessId},</if>
+            <if test="passId != null">#{passId},</if>
+            <if test="infectId != null">#{infectId},</if>
          </trim>
     </insert>
 
     <update id="updateEpidemicPassageIllness" parameterType="EpidemicPassageIllness">
         update epidemic_passage_illness
         <trim prefix="SET" suffixOverrides=",">
-            <if test="illnessId != null">illness_id = #{illnessId},</if>
+            <if test="passId != null">pass_id = #{passId},</if>
+            <if test="infectId != null">infect_id = #{infectId},</if>
         </trim>
-        where passage_id = #{passageId}
+        where passage_illness_id = #{passageIllnessId}
     </update>
 
-    <delete id="deleteEpidemicPassageIllnessByPassageId" parameterType="Long">
-        delete from epidemic_passage_illness where passage_id = #{passageId}
+    <delete id="deleteEpidemicPassageIllnessByPassageIllnessId" parameterType="Long">
+        delete from epidemic_passage_illness where passage_illness_id = #{passageIllnessId}
     </delete>
 
-    <delete id="deleteEpidemicPassageIllnessByPassageIds" parameterType="String">
-        delete from epidemic_passage_illness where passage_id in 
-        <foreach item="passageId" collection="array" open="(" separator="," close=")">
-            #{passageId}
+    <delete id="deleteEpidemicPassageIllnessByPassageIllnessIds" parameterType="String">
+        delete from epidemic_passage_illness where passage_illness_id in 
+        <foreach item="passageIllnessId" collection="array" open="(" separator="," close=")">
+            #{passageIllnessId}
         </foreach>
     </delete>
 </mapper>

@@ -11,7 +11,7 @@ import zstu.epidemic.illness.service.IEpidemicDrugFactoryService;
  * 工厂管理Service业务层处理
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @Service
 public class EpidemicDrugFactoryServiceImpl implements IEpidemicDrugFactoryService 
@@ -22,13 +22,13 @@ public class EpidemicDrugFactoryServiceImpl implements IEpidemicDrugFactoryServi
     /**
      * 查询工厂管理
      * 
-     * @param factoryId 工厂管理主键
+     * @param drugFactoryId 工厂管理主键
      * @return 工厂管理
      */
     @Override
-    public EpidemicDrugFactory selectEpidemicDrugFactoryByFactoryId(Long factoryId)
+    public EpidemicDrugFactory selectEpidemicDrugFactoryByDrugFactoryId(Long drugFactoryId)
     {
-        return epidemicDrugFactoryMapper.selectEpidemicDrugFactoryByFactoryId(factoryId);
+        return epidemicDrugFactoryMapper.selectEpidemicDrugFactoryByDrugFactoryId(drugFactoryId);
     }
 
     /**
@@ -70,24 +70,24 @@ public class EpidemicDrugFactoryServiceImpl implements IEpidemicDrugFactoryServi
     /**
      * 批量删除工厂管理
      * 
-     * @param factoryIds 需要删除的工厂管理主键
+     * @param drugFactoryIds 需要删除的工厂管理主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicDrugFactoryByFactoryIds(Long[] factoryIds)
+    public int deleteEpidemicDrugFactoryByDrugFactoryIds(Long[] drugFactoryIds)
     {
-        return epidemicDrugFactoryMapper.deleteEpidemicDrugFactoryByFactoryIds(factoryIds);
+        return epidemicDrugFactoryMapper.deleteEpidemicDrugFactoryByDrugFactoryIds(drugFactoryIds);
     }
 
     /**
      * 删除工厂管理信息
      * 
-     * @param factoryId 工厂管理主键
+     * @param drugFactoryId 工厂管理主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicDrugFactoryByFactoryId(Long factoryId)
+    public int deleteEpidemicDrugFactoryByDrugFactoryId(Long drugFactoryId)
     {
-        return epidemicDrugFactoryMapper.deleteEpidemicDrugFactoryByFactoryId(factoryId);
+        return epidemicDrugFactoryMapper.deleteEpidemicDrugFactoryByDrugFactoryId(drugFactoryId);
     }
 }

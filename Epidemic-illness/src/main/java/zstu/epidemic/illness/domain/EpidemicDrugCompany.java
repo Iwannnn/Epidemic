@@ -9,44 +9,57 @@ import zstu.epidemic.common.core.domain.BaseEntity;
  * 公司药品管理对象 epidemic_drug_company
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 public class EpidemicDrugCompany extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
+    /** 药品公司关联id */
+    private Long drugCompanyId;
+
     /** 公司id */
     @Excel(name = "公司id")
-    private Long companyId;
+    private Long compId;
 
-    /** 药品id */
-    @Excel(name = "药品id")
-    private Long drugId;
+    /** 药物id */
+    @Excel(name = "药物id")
+    private Long medicineId;
 
-    public void setCompanyId(Long companyId) 
+    public void setDrugCompanyId(Long drugCompanyId) 
     {
-        this.companyId = companyId;
+        this.drugCompanyId = drugCompanyId;
     }
 
-    public Long getCompanyId() 
+    public Long getDrugCompanyId() 
     {
-        return companyId;
+        return drugCompanyId;
     }
-    public void setDrugId(Long drugId) 
+    public void setCompId(Long compId) 
     {
-        this.drugId = drugId;
+        this.compId = compId;
     }
 
-    public Long getDrugId() 
+    public Long getCompId() 
     {
-        return drugId;
+        return compId;
+    }
+    public void setMedicineId(Long medicineId) 
+    {
+        this.medicineId = medicineId;
+    }
+
+    public Long getMedicineId() 
+    {
+        return medicineId;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("companyId", getCompanyId())
-            .append("drugId", getDrugId())
+            .append("drugCompanyId", getDrugCompanyId())
+            .append("compId", getCompId())
+            .append("medicineId", getMedicineId())
             .toString();
     }
 }

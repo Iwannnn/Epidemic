@@ -10,9 +10,9 @@ export function listComplication(query) {
 }
 
 // 查询并发症管理详细
-export function getComplication(complicationId) {
+export function getComplication(infectCompId) {
   return request({
-    url: '/illness/complication/' + complicationId,
+    url: '/illness/complication/' + infectCompId,
     method: 'get'
   })
 }
@@ -36,9 +36,9 @@ export function updateComplication(data) {
 }
 
 // 删除并发症管理
-export function delComplication(complicationId) {
+export function delComplication(infectCompId) {
   return request({
-    url: '/illness/complication/' + complicationId,
+    url: '/illness/complication/' + infectCompId,
     method: 'delete'
   })
 }

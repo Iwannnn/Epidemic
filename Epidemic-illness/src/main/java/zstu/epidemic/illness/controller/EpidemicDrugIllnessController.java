@@ -25,7 +25,7 @@ import zstu.epidemic.common.core.page.TableDataInfo;
  * 疾病药品Controller
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @RestController
 @RequestMapping("/illness/drug_illness")
@@ -63,10 +63,10 @@ public class EpidemicDrugIllnessController extends BaseController
      * 获取疾病药品详细信息
      */
     @PreAuthorize("@ss.hasPermi('illness:drug_illness:query')")
-    @GetMapping(value = "/{drugId}")
-    public AjaxResult getInfo(@PathVariable("drugId") Long drugId)
+    @GetMapping(value = "/{drugIllnessId}")
+    public AjaxResult getInfo(@PathVariable("drugIllnessId") Long drugIllnessId)
     {
-        return AjaxResult.success(epidemicDrugIllnessService.selectEpidemicDrugIllnessByDrugId(drugId));
+        return AjaxResult.success(epidemicDrugIllnessService.selectEpidemicDrugIllnessByDrugIllnessId(drugIllnessId));
     }
 
     /**
@@ -96,9 +96,9 @@ public class EpidemicDrugIllnessController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('illness:drug_illness:remove')")
     @Log(title = "疾病药品", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{drugIds}")
-    public AjaxResult remove(@PathVariable Long[] drugIds)
+	@DeleteMapping("/{drugIllnessIds}")
+    public AjaxResult remove(@PathVariable Long[] drugIllnessIds)
     {
-        return toAjax(epidemicDrugIllnessService.deleteEpidemicDrugIllnessByDrugIds(drugIds));
+        return toAjax(epidemicDrugIllnessService.deleteEpidemicDrugIllnessByDrugIllnessIds(drugIllnessIds));
     }
 }

@@ -7,17 +7,17 @@ import zstu.epidemic.illness.domain.EpidemicDrugCompany;
  * 公司药品管理Mapper接口
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 public interface EpidemicDrugCompanyMapper 
 {
     /**
      * 查询公司药品管理
      * 
-     * @param companyId 公司药品管理主键
+     * @param drugCompanyId 公司药品管理主键
      * @return 公司药品管理
      */
-    public EpidemicDrugCompany selectEpidemicDrugCompanyByCompanyId(Long companyId);
+    public EpidemicDrugCompany selectEpidemicDrugCompanyByDrugCompanyId(Long drugCompanyId);
 
     /**
      * 查询公司药品管理列表
@@ -46,16 +46,16 @@ public interface EpidemicDrugCompanyMapper
     /**
      * 删除公司药品管理
      * 
-     * @param companyId 公司药品管理主键
+     * @param drugCompanyId 公司药品管理主键
      * @return 结果
      */
-    public int deleteEpidemicDrugCompanyByCompanyId(Long companyId);
+    public int deleteEpidemicDrugCompanyByDrugCompanyId(Long drugCompanyId);
 
     /**
      * 批量删除公司药品管理
      * 
-     * @param companyIds 需要删除的数据主键集合
+     * @param drugCompanyIds 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteEpidemicDrugCompanyByCompanyIds(Long[] companyIds);
+    public int deleteEpidemicDrugCompanyByDrugCompanyIds(Long[] drugCompanyIds);
 }

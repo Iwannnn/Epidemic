@@ -10,9 +10,9 @@ export function listDrug_factory(query) {
 }
 
 // 查询工厂管理详细
-export function getDrug_factory(factoryId) {
+export function getDrug_factory(drugFactoryId) {
   return request({
-    url: '/illness/drug_factory/' + factoryId,
+    url: '/illness/drug_factory/' + drugFactoryId,
     method: 'get'
   })
 }
@@ -36,9 +36,9 @@ export function updateDrug_factory(data) {
 }
 
 // 删除工厂管理
-export function delDrug_factory(factoryId) {
+export function delDrug_factory(drugFactoryId) {
   return request({
-    url: '/illness/drug_factory/' + factoryId,
+    url: '/illness/drug_factory/' + drugFactoryId,
     method: 'delete'
   })
 }

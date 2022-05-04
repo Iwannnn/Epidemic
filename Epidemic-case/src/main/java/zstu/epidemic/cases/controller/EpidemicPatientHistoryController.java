@@ -1,4 +1,4 @@
-package zstu.epidemic.illness.controller;
+package zstu.epidemic.cases.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +16,8 @@ import zstu.epidemic.common.annotation.Log;
 import zstu.epidemic.common.core.controller.BaseController;
 import zstu.epidemic.common.core.domain.AjaxResult;
 import zstu.epidemic.common.enums.BusinessType;
-import zstu.epidemic.illness.domain.EpidemicPatientHistory;
-import zstu.epidemic.illness.service.IEpidemicPatientHistoryService;
+import zstu.epidemic.cases.domain.EpidemicPatientHistory;
+import zstu.epidemic.cases.service.IEpidemicPatientHistoryService;
 import zstu.epidemic.common.utils.poi.ExcelUtil;
 import zstu.epidemic.common.core.page.TableDataInfo;
 
@@ -25,7 +25,7 @@ import zstu.epidemic.common.core.page.TableDataInfo;
  * 病史管理Controller
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @RestController
 @RequestMapping("/cases/history")
@@ -63,10 +63,10 @@ public class EpidemicPatientHistoryController extends BaseController
      * 获取病史管理详细信息
      */
     @PreAuthorize("@ss.hasPermi('cases:history:query')")
-    @GetMapping(value = "/{patientId}")
-    public AjaxResult getInfo(@PathVariable("patientId") Long patientId)
+    @GetMapping(value = "/{patientHistoryId}")
+    public AjaxResult getInfo(@PathVariable("patientHistoryId") Long patientHistoryId)
     {
-        return AjaxResult.success(epidemicPatientHistoryService.selectEpidemicPatientHistoryByPatientId(patientId));
+        return AjaxResult.success(epidemicPatientHistoryService.selectEpidemicPatientHistoryByPatientHistoryId(patientHistoryId));
     }
 
     /**
@@ -96,9 +96,9 @@ public class EpidemicPatientHistoryController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('cases:history:remove')")
     @Log(title = "病史管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{patientIds}")
-    public AjaxResult remove(@PathVariable Long[] patientIds)
+	@DeleteMapping("/{patientHistoryIds}")
+    public AjaxResult remove(@PathVariable Long[] patientHistoryIds)
     {
-        return toAjax(epidemicPatientHistoryService.deleteEpidemicPatientHistoryByPatientIds(patientIds));
+        return toAjax(epidemicPatientHistoryService.deleteEpidemicPatientHistoryByPatientHistoryIds(patientHistoryIds));
     }
 }

@@ -25,7 +25,7 @@ import zstu.epidemic.common.core.page.TableDataInfo;
  * 文章疾病Controller
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @RestController
 @RequestMapping("/illness/illness_passage")
@@ -63,10 +63,10 @@ public class EpidemicPassageIllnessController extends BaseController
      * 获取文章疾病详细信息
      */
     @PreAuthorize("@ss.hasPermi('illness:illness_passage:query')")
-    @GetMapping(value = "/{passageId}")
-    public AjaxResult getInfo(@PathVariable("passageId") Long passageId)
+    @GetMapping(value = "/{passageIllnessId}")
+    public AjaxResult getInfo(@PathVariable("passageIllnessId") Long passageIllnessId)
     {
-        return AjaxResult.success(epidemicPassageIllnessService.selectEpidemicPassageIllnessByPassageId(passageId));
+        return AjaxResult.success(epidemicPassageIllnessService.selectEpidemicPassageIllnessByPassageIllnessId(passageIllnessId));
     }
 
     /**
@@ -96,9 +96,9 @@ public class EpidemicPassageIllnessController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('illness:illness_passage:remove')")
     @Log(title = "文章疾病", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{passageIds}")
-    public AjaxResult remove(@PathVariable Long[] passageIds)
+	@DeleteMapping("/{passageIllnessIds}")
+    public AjaxResult remove(@PathVariable Long[] passageIllnessIds)
     {
-        return toAjax(epidemicPassageIllnessService.deleteEpidemicPassageIllnessByPassageIds(passageIds));
+        return toAjax(epidemicPassageIllnessService.deleteEpidemicPassageIllnessByPassageIllnessIds(passageIllnessIds));
     }
 }

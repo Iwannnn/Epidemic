@@ -25,7 +25,7 @@ import zstu.epidemic.common.core.page.TableDataInfo;
  * 后遗症Controller
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @RestController
 @RequestMapping("/illness/sequelae")
@@ -63,10 +63,10 @@ public class EpidemicSequelaeController extends BaseController
      * 获取后遗症详细信息
      */
     @PreAuthorize("@ss.hasPermi('illness:sequelae:query')")
-    @GetMapping(value = "/{sequelaeId}")
-    public AjaxResult getInfo(@PathVariable("sequelaeId") Long sequelaeId)
+    @GetMapping(value = "/{illnessSeqId}")
+    public AjaxResult getInfo(@PathVariable("illnessSeqId") Long illnessSeqId)
     {
-        return AjaxResult.success(epidemicSequelaeService.selectEpidemicSequelaeBySequelaeId(sequelaeId));
+        return AjaxResult.success(epidemicSequelaeService.selectEpidemicSequelaeByIllnessSeqId(illnessSeqId));
     }
 
     /**
@@ -96,9 +96,9 @@ public class EpidemicSequelaeController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('illness:sequelae:remove')")
     @Log(title = "后遗症", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{sequelaeIds}")
-    public AjaxResult remove(@PathVariable Long[] sequelaeIds)
+	@DeleteMapping("/{illnessSeqIds}")
+    public AjaxResult remove(@PathVariable Long[] illnessSeqIds)
     {
-        return toAjax(epidemicSequelaeService.deleteEpidemicSequelaeBySequelaeIds(sequelaeIds));
+        return toAjax(epidemicSequelaeService.deleteEpidemicSequelaeByIllnessSeqIds(illnessSeqIds));
     }
 }

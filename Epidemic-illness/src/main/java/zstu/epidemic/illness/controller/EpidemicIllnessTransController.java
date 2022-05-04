@@ -25,7 +25,7 @@ import zstu.epidemic.common.core.page.TableDataInfo;
  * 疾病传播方式Controller
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @RestController
 @RequestMapping("/illness/illness_trans")
@@ -63,10 +63,10 @@ public class EpidemicIllnessTransController extends BaseController
      * 获取疾病传播方式详细信息
      */
     @PreAuthorize("@ss.hasPermi('illness:illness_trans:query')")
-    @GetMapping(value = "/{transId}")
-    public AjaxResult getInfo(@PathVariable("transId") Long transId)
+    @GetMapping(value = "/{illnessTransId}")
+    public AjaxResult getInfo(@PathVariable("illnessTransId") Long illnessTransId)
     {
-        return AjaxResult.success(epidemicIllnessTransService.selectEpidemicIllnessTransByTransId(transId));
+        return AjaxResult.success(epidemicIllnessTransService.selectEpidemicIllnessTransByIllnessTransId(illnessTransId));
     }
 
     /**
@@ -96,9 +96,9 @@ public class EpidemicIllnessTransController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('illness:illness_trans:remove')")
     @Log(title = "疾病传播方式", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{transIds}")
-    public AjaxResult remove(@PathVariable Long[] transIds)
+	@DeleteMapping("/{illnessTransIds}")
+    public AjaxResult remove(@PathVariable Long[] illnessTransIds)
     {
-        return toAjax(epidemicIllnessTransService.deleteEpidemicIllnessTransByTransIds(transIds));
+        return toAjax(epidemicIllnessTransService.deleteEpidemicIllnessTransByIllnessTransIds(illnessTransIds));
     }
 }

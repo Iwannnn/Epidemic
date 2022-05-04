@@ -7,17 +7,17 @@ import zstu.epidemic.illness.domain.EpidemicIllnessTrans;
  * 疾病传播方式Mapper接口
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 public interface EpidemicIllnessTransMapper 
 {
     /**
      * 查询疾病传播方式
      * 
-     * @param transId 疾病传播方式主键
+     * @param illnessTransId 疾病传播方式主键
      * @return 疾病传播方式
      */
-    public EpidemicIllnessTrans selectEpidemicIllnessTransByTransId(Long transId);
+    public EpidemicIllnessTrans selectEpidemicIllnessTransByIllnessTransId(Long illnessTransId);
 
     /**
      * 查询疾病传播方式列表
@@ -46,16 +46,16 @@ public interface EpidemicIllnessTransMapper
     /**
      * 删除疾病传播方式
      * 
-     * @param transId 疾病传播方式主键
+     * @param illnessTransId 疾病传播方式主键
      * @return 结果
      */
-    public int deleteEpidemicIllnessTransByTransId(Long transId);
+    public int deleteEpidemicIllnessTransByIllnessTransId(Long illnessTransId);
 
     /**
      * 批量删除疾病传播方式
      * 
-     * @param transIds 需要删除的数据主键集合
+     * @param illnessTransIds 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteEpidemicIllnessTransByTransIds(Long[] transIds);
+    public int deleteEpidemicIllnessTransByIllnessTransIds(Long[] illnessTransIds);
 }

@@ -10,9 +10,9 @@ export function listDrug_company(query) {
 }
 
 // 查询公司药品管理详细
-export function getDrug_company(companyId) {
+export function getDrug_company(drugCompanyId) {
   return request({
-    url: '/illness/drug_company/' + companyId,
+    url: '/illness/drug_company/' + drugCompanyId,
     method: 'get'
   })
 }
@@ -36,9 +36,9 @@ export function updateDrug_company(data) {
 }
 
 // 删除公司药品管理
-export function delDrug_company(companyId) {
+export function delDrug_company(drugCompanyId) {
   return request({
-    url: '/illness/drug_company/' + companyId,
+    url: '/illness/drug_company/' + drugCompanyId,
     method: 'delete'
   })
 }

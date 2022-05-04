@@ -1,17 +1,17 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="后遗症id" prop="sequelaeId">
+      <el-form-item label="后遗症id" prop="seqId">
         <el-input
-          v-model="queryParams.sequelaeId"
+          v-model="queryParams.seqId"
           placeholder="请输入后遗症id"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="传染病id" prop="infectiousId">
+      <el-form-item label="传染病id" prop="infectId">
         <el-input
-          v-model="queryParams.infectiousId"
+          v-model="queryParams.infectId"
           placeholder="请输入传染病id"
           clearable
           @keyup.enter.native="handleQuery"
@@ -71,8 +71,9 @@
 
     <el-table v-loading="loading" :data="sequelaeList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="后遗症id" align="center" prop="sequelaeId" />
-      <el-table-column label="传染病id" align="center" prop="infectiousId" />
+      <el-table-column label="疾病后遗症id" align="center" prop="illnessSeqId" />
+      <el-table-column label="后遗症id" align="center" prop="seqId" />
+      <el-table-column label="传染病id" align="center" prop="infectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -104,8 +105,11 @@
     <!-- 添加或修改后遗症对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="传染病id" prop="infectiousId">
-          <el-input v-model="form.infectiousId" placeholder="请输入传染病id" />
+        <el-form-item label="后遗症id" prop="seqId">
+          <el-input v-model="form.seqId" placeholder="请输入后遗症id" />
+        </el-form-item>
+        <el-form-item label="传染病id" prop="infectId">
+          <el-input v-model="form.infectId" placeholder="请输入传染病id" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -145,14 +149,17 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        sequelaeId: null,
-        infectiousId: null
+        seqId: null,
+        infectId: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        infectiousId: [
+        seqId: [
+          { required: true, message: "后遗症id不能为空", trigger: "blur" }
+        ],
+        infectId: [
           { required: true, message: "传染病id不能为空", trigger: "blur" }
         ]
       }
@@ -179,8 +186,9 @@ export default {
     // 表单重置
     reset() {
       this.form = {
-        sequelaeId: null,
-        infectiousId: null
+        illnessSeqId: null,
+        seqId: null,
+        infectId: null
       };
       this.resetForm("form");
     },
@@ -196,7 +204,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.sequelaeId)
+      this.ids = selection.map(item => item.illnessSeqId)
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
@@ -209,8 +217,8 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const sequelaeId = row.sequelaeId || this.ids
-      getSequelae(sequelaeId).then(response => {
+      const illnessSeqId = row.illnessSeqId || this.ids
+      getSequelae(illnessSeqId).then(response => {
         this.form = response.data;
         this.open = true;
         this.title = "修改后遗症";
@@ -220,7 +228,7 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.sequelaeId != null) {
+          if (this.form.illnessSeqId != null) {
             updateSequelae(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
@@ -238,9 +246,9 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const sequelaeIds = row.sequelaeId || this.ids;
-      this.$modal.confirm('是否确认删除后遗症编号为"' + sequelaeIds + '"的数据项？').then(function() {
-        return delSequelae(sequelaeIds);
+      const illnessSeqIds = row.illnessSeqId || this.ids;
+      this.$modal.confirm('是否确认删除后遗症编号为"' + illnessSeqIds + '"的数据项？').then(function() {
+        return delSequelae(illnessSeqIds);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");

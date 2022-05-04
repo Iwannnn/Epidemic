@@ -1,17 +1,17 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="病人id" prop="patientId">
+      <el-form-item label="病人id" prop="patId">
         <el-input
-          v-model="queryParams.patientId"
+          v-model="queryParams.patId"
           placeholder="请输入病人id"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="病id" prop="illnessId">
+      <el-form-item label="病id" prop="diseaseId">
         <el-input
-          v-model="queryParams.illnessId"
+          v-model="queryParams.diseaseId"
           placeholder="请输入病id"
           clearable
           @keyup.enter.native="handleQuery"
@@ -71,8 +71,9 @@
 
     <el-table v-loading="loading" :data="historyList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="病人id" align="center" prop="patientId" />
-      <el-table-column label="病id" align="center" prop="illnessId" />
+      <el-table-column label="病史id" align="center" prop="patientHistoryId" />
+      <el-table-column label="病人id" align="center" prop="patId" />
+      <el-table-column label="病id" align="center" prop="diseaseId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -104,6 +105,12 @@
     <!-- 添加或修改病史管理对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="病人id" prop="patId">
+          <el-input v-model="form.patId" placeholder="请输入病人id" />
+        </el-form-item>
+        <el-form-item label="病id" prop="diseaseId">
+          <el-input v-model="form.diseaseId" placeholder="请输入病id" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -142,13 +149,19 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        patientId: null,
-        illnessId: null
+        patId: null,
+        diseaseId: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
+        patId: [
+          { required: true, message: "病人id不能为空", trigger: "blur" }
+        ],
+        diseaseId: [
+          { required: true, message: "病id不能为空", trigger: "blur" }
+        ]
       }
     };
   },
@@ -173,8 +186,9 @@ export default {
     // 表单重置
     reset() {
       this.form = {
-        patientId: null,
-        illnessId: null
+        patientHistoryId: null,
+        patId: null,
+        diseaseId: null
       };
       this.resetForm("form");
     },
@@ -190,7 +204,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.patientId)
+      this.ids = selection.map(item => item.patientHistoryId)
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
@@ -203,8 +217,8 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const patientId = row.patientId || this.ids
-      getHistory(patientId).then(response => {
+      const patientHistoryId = row.patientHistoryId || this.ids
+      getHistory(patientHistoryId).then(response => {
         this.form = response.data;
         this.open = true;
         this.title = "修改病史管理";
@@ -214,7 +228,7 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.patientId != null) {
+          if (this.form.patientHistoryId != null) {
             updateHistory(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
@@ -232,9 +246,9 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const patientIds = row.patientId || this.ids;
-      this.$modal.confirm('是否确认删除病史管理编号为"' + patientIds + '"的数据项？').then(function() {
-        return delHistory(patientIds);
+      const patientHistoryIds = row.patientHistoryId || this.ids;
+      this.$modal.confirm('是否确认删除病史管理编号为"' + patientHistoryIds + '"的数据项？').then(function() {
+        return delHistory(patientHistoryIds);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");

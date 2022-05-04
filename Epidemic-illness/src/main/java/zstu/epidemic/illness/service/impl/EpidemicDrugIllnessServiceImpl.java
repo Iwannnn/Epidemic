@@ -11,7 +11,7 @@ import zstu.epidemic.illness.service.IEpidemicDrugIllnessService;
  * 疾病药品Service业务层处理
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @Service
 public class EpidemicDrugIllnessServiceImpl implements IEpidemicDrugIllnessService 
@@ -22,13 +22,13 @@ public class EpidemicDrugIllnessServiceImpl implements IEpidemicDrugIllnessServi
     /**
      * 查询疾病药品
      * 
-     * @param drugId 疾病药品主键
+     * @param drugIllnessId 疾病药品主键
      * @return 疾病药品
      */
     @Override
-    public EpidemicDrugIllness selectEpidemicDrugIllnessByDrugId(Long drugId)
+    public EpidemicDrugIllness selectEpidemicDrugIllnessByDrugIllnessId(Long drugIllnessId)
     {
-        return epidemicDrugIllnessMapper.selectEpidemicDrugIllnessByDrugId(drugId);
+        return epidemicDrugIllnessMapper.selectEpidemicDrugIllnessByDrugIllnessId(drugIllnessId);
     }
 
     /**
@@ -70,24 +70,24 @@ public class EpidemicDrugIllnessServiceImpl implements IEpidemicDrugIllnessServi
     /**
      * 批量删除疾病药品
      * 
-     * @param drugIds 需要删除的疾病药品主键
+     * @param drugIllnessIds 需要删除的疾病药品主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicDrugIllnessByDrugIds(Long[] drugIds)
+    public int deleteEpidemicDrugIllnessByDrugIllnessIds(Long[] drugIllnessIds)
     {
-        return epidemicDrugIllnessMapper.deleteEpidemicDrugIllnessByDrugIds(drugIds);
+        return epidemicDrugIllnessMapper.deleteEpidemicDrugIllnessByDrugIllnessIds(drugIllnessIds);
     }
 
     /**
      * 删除疾病药品信息
      * 
-     * @param drugId 疾病药品主键
+     * @param drugIllnessId 疾病药品主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicDrugIllnessByDrugId(Long drugId)
+    public int deleteEpidemicDrugIllnessByDrugIllnessId(Long drugIllnessId)
     {
-        return epidemicDrugIllnessMapper.deleteEpidemicDrugIllnessByDrugId(drugId);
+        return epidemicDrugIllnessMapper.deleteEpidemicDrugIllnessByDrugIllnessId(drugIllnessId);
     }
 }

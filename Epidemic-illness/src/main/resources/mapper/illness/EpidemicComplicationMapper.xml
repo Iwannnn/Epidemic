@@ -5,36 +5,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="zstu.epidemic.illness.mapper.EpidemicComplicationMapper">
     
     <resultMap type="EpidemicComplication" id="EpidemicComplicationResult">
-        <result property="complicationId"    column="complication_id"    />
+        <result property="infectCompId"    column="infect_comp_id"    />
         <result property="infectiousId"    column="infectious_id"    />
+        <result property="compId"    column="comp_id"    />
     </resultMap>
 
     <sql id="selectEpidemicComplicationVo">
-        select complication_id, infectious_id from epidemic_complication
+        select infect_comp_id, infectious_id, comp_id from epidemic_complication
     </sql>
 
     <select id="selectEpidemicComplicationList" parameterType="EpidemicComplication" resultMap="EpidemicComplicationResult">
         <include refid="selectEpidemicComplicationVo"/>
         <where>  
-            <if test="complicationId != null "> and complication_id = #{complicationId}</if>
             <if test="infectiousId != null "> and infectious_id = #{infectiousId}</if>
+            <if test="compId != null "> and comp_id = #{compId}</if>
         </where>
     </select>
     
-    <select id="selectEpidemicComplicationByComplicationId" parameterType="Long" resultMap="EpidemicComplicationResult">
+    <select id="selectEpidemicComplicationByInfectCompId" parameterType="Long" resultMap="EpidemicComplicationResult">
         <include refid="selectEpidemicComplicationVo"/>
-        where complication_id = #{complicationId}
+        where infect_comp_id = #{infectCompId}
     </select>
         
-    <insert id="insertEpidemicComplication" parameterType="EpidemicComplication">
+    <insert id="insertEpidemicComplication" parameterType="EpidemicComplication" useGeneratedKeys="true" keyProperty="infectCompId">
         insert into epidemic_complication
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="complicationId != null">complication_id,</if>
             <if test="infectiousId != null">infectious_id,</if>
+            <if test="compId != null">comp_id,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="complicationId != null">#{complicationId},</if>
             <if test="infectiousId != null">#{infectiousId},</if>
+            <if test="compId != null">#{compId},</if>
          </trim>
     </insert>
 
@@ -42,18 +43,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update epidemic_complication
         <trim prefix="SET" suffixOverrides=",">
             <if test="infectiousId != null">infectious_id = #{infectiousId},</if>
+            <if test="compId != null">comp_id = #{compId},</if>
         </trim>
-        where complication_id = #{complicationId}
+        where infect_comp_id = #{infectCompId}
     </update>
 
-    <delete id="deleteEpidemicComplicationByComplicationId" parameterType="Long">
-        delete from epidemic_complication where complication_id = #{complicationId}
+    <delete id="deleteEpidemicComplicationByInfectCompId" parameterType="Long">
+        delete from epidemic_complication where infect_comp_id = #{infectCompId}
     </delete>
 
-    <delete id="deleteEpidemicComplicationByComplicationIds" parameterType="String">
-        delete from epidemic_complication where complication_id in 
-        <foreach item="complicationId" collection="array" open="(" separator="," close=")">
-            #{complicationId}
+    <delete id="deleteEpidemicComplicationByInfectCompIds" parameterType="String">
+        delete from epidemic_complication where infect_comp_id in 
+        <foreach item="infectCompId" collection="array" open="(" separator="," close=")">
+            #{infectCompId}
         </foreach>
     </delete>
 </mapper>

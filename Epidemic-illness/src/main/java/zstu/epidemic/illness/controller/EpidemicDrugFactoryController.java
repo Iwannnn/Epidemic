@@ -25,7 +25,7 @@ import zstu.epidemic.common.core.page.TableDataInfo;
  * 工厂管理Controller
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @RestController
 @RequestMapping("/illness/drug_factory")
@@ -63,10 +63,10 @@ public class EpidemicDrugFactoryController extends BaseController
      * 获取工厂管理详细信息
      */
     @PreAuthorize("@ss.hasPermi('illness:drug_factory:query')")
-    @GetMapping(value = "/{factoryId}")
-    public AjaxResult getInfo(@PathVariable("factoryId") Long factoryId)
+    @GetMapping(value = "/{drugFactoryId}")
+    public AjaxResult getInfo(@PathVariable("drugFactoryId") Long drugFactoryId)
     {
-        return AjaxResult.success(epidemicDrugFactoryService.selectEpidemicDrugFactoryByFactoryId(factoryId));
+        return AjaxResult.success(epidemicDrugFactoryService.selectEpidemicDrugFactoryByDrugFactoryId(drugFactoryId));
     }
 
     /**
@@ -96,9 +96,9 @@ public class EpidemicDrugFactoryController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('illness:drug_factory:remove')")
     @Log(title = "工厂管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{factoryIds}")
-    public AjaxResult remove(@PathVariable Long[] factoryIds)
+	@DeleteMapping("/{drugFactoryIds}")
+    public AjaxResult remove(@PathVariable Long[] drugFactoryIds)
     {
-        return toAjax(epidemicDrugFactoryService.deleteEpidemicDrugFactoryByFactoryIds(factoryIds));
+        return toAjax(epidemicDrugFactoryService.deleteEpidemicDrugFactoryByDrugFactoryIds(drugFactoryIds));
     }
 }

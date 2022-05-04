@@ -7,17 +7,17 @@ import zstu.epidemic.illness.domain.EpidemicComplication;
  * 并发症管理Service接口
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 public interface IEpidemicComplicationService 
 {
     /**
      * 查询并发症管理
      * 
-     * @param complicationId 并发症管理主键
+     * @param infectCompId 并发症管理主键
      * @return 并发症管理
      */
-    public EpidemicComplication selectEpidemicComplicationByComplicationId(Long complicationId);
+    public EpidemicComplication selectEpidemicComplicationByInfectCompId(Long infectCompId);
 
     /**
      * 查询并发症管理列表
@@ -46,16 +46,16 @@ public interface IEpidemicComplicationService
     /**
      * 批量删除并发症管理
      * 
-     * @param complicationIds 需要删除的并发症管理主键集合
+     * @param infectCompIds 需要删除的并发症管理主键集合
      * @return 结果
      */
-    public int deleteEpidemicComplicationByComplicationIds(Long[] complicationIds);
+    public int deleteEpidemicComplicationByInfectCompIds(Long[] infectCompIds);
 
     /**
      * 删除并发症管理信息
      * 
-     * @param complicationId 并发症管理主键
+     * @param infectCompId 并发症管理主键
      * @return 结果
      */
-    public int deleteEpidemicComplicationByComplicationId(Long complicationId);
+    public int deleteEpidemicComplicationByInfectCompId(Long infectCompId);
 }

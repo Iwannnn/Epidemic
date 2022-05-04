@@ -10,9 +10,9 @@ export function listDrug_illness(query) {
 }
 
 // 查询疾病药品详细
-export function getDrug_illness(drugId) {
+export function getDrug_illness(drugIllnessId) {
   return request({
-    url: '/illness/drug_illness/' + drugId,
+    url: '/illness/drug_illness/' + drugIllnessId,
     method: 'get'
   })
 }
@@ -36,9 +36,9 @@ export function updateDrug_illness(data) {
 }
 
 // 删除疾病药品
-export function delDrug_illness(drugId) {
+export function delDrug_illness(drugIllnessId) {
   return request({
-    url: '/illness/drug_illness/' + drugId,
+    url: '/illness/drug_illness/' + drugIllnessId,
     method: 'delete'
   })
 }

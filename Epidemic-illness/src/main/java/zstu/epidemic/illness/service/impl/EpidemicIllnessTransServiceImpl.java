@@ -11,7 +11,7 @@ import zstu.epidemic.illness.service.IEpidemicIllnessTransService;
  * 疾病传播方式Service业务层处理
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @Service
 public class EpidemicIllnessTransServiceImpl implements IEpidemicIllnessTransService 
@@ -22,13 +22,13 @@ public class EpidemicIllnessTransServiceImpl implements IEpidemicIllnessTransSer
     /**
      * 查询疾病传播方式
      * 
-     * @param transId 疾病传播方式主键
+     * @param illnessTransId 疾病传播方式主键
      * @return 疾病传播方式
      */
     @Override
-    public EpidemicIllnessTrans selectEpidemicIllnessTransByTransId(Long transId)
+    public EpidemicIllnessTrans selectEpidemicIllnessTransByIllnessTransId(Long illnessTransId)
     {
-        return epidemicIllnessTransMapper.selectEpidemicIllnessTransByTransId(transId);
+        return epidemicIllnessTransMapper.selectEpidemicIllnessTransByIllnessTransId(illnessTransId);
     }
 
     /**
@@ -70,24 +70,24 @@ public class EpidemicIllnessTransServiceImpl implements IEpidemicIllnessTransSer
     /**
      * 批量删除疾病传播方式
      * 
-     * @param transIds 需要删除的疾病传播方式主键
+     * @param illnessTransIds 需要删除的疾病传播方式主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicIllnessTransByTransIds(Long[] transIds)
+    public int deleteEpidemicIllnessTransByIllnessTransIds(Long[] illnessTransIds)
     {
-        return epidemicIllnessTransMapper.deleteEpidemicIllnessTransByTransIds(transIds);
+        return epidemicIllnessTransMapper.deleteEpidemicIllnessTransByIllnessTransIds(illnessTransIds);
     }
 
     /**
      * 删除疾病传播方式信息
      * 
-     * @param transId 疾病传播方式主键
+     * @param illnessTransId 疾病传播方式主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicIllnessTransByTransId(Long transId)
+    public int deleteEpidemicIllnessTransByIllnessTransId(Long illnessTransId)
     {
-        return epidemicIllnessTransMapper.deleteEpidemicIllnessTransByTransId(transId);
+        return epidemicIllnessTransMapper.deleteEpidemicIllnessTransByIllnessTransId(illnessTransId);
     }
 }

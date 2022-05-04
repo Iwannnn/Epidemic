@@ -11,7 +11,7 @@ import zstu.epidemic.illness.service.IEpidemicDrugCompanyService;
  * 公司药品管理Service业务层处理
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @Service
 public class EpidemicDrugCompanyServiceImpl implements IEpidemicDrugCompanyService 
@@ -22,13 +22,13 @@ public class EpidemicDrugCompanyServiceImpl implements IEpidemicDrugCompanyServi
     /**
      * 查询公司药品管理
      * 
-     * @param companyId 公司药品管理主键
+     * @param drugCompanyId 公司药品管理主键
      * @return 公司药品管理
      */
     @Override
-    public EpidemicDrugCompany selectEpidemicDrugCompanyByCompanyId(Long companyId)
+    public EpidemicDrugCompany selectEpidemicDrugCompanyByDrugCompanyId(Long drugCompanyId)
     {
-        return epidemicDrugCompanyMapper.selectEpidemicDrugCompanyByCompanyId(companyId);
+        return epidemicDrugCompanyMapper.selectEpidemicDrugCompanyByDrugCompanyId(drugCompanyId);
     }
 
     /**
@@ -70,24 +70,24 @@ public class EpidemicDrugCompanyServiceImpl implements IEpidemicDrugCompanyServi
     /**
      * 批量删除公司药品管理
      * 
-     * @param companyIds 需要删除的公司药品管理主键
+     * @param drugCompanyIds 需要删除的公司药品管理主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicDrugCompanyByCompanyIds(Long[] companyIds)
+    public int deleteEpidemicDrugCompanyByDrugCompanyIds(Long[] drugCompanyIds)
     {
-        return epidemicDrugCompanyMapper.deleteEpidemicDrugCompanyByCompanyIds(companyIds);
+        return epidemicDrugCompanyMapper.deleteEpidemicDrugCompanyByDrugCompanyIds(drugCompanyIds);
     }
 
     /**
      * 删除公司药品管理信息
      * 
-     * @param companyId 公司药品管理主键
+     * @param drugCompanyId 公司药品管理主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicDrugCompanyByCompanyId(Long companyId)
+    public int deleteEpidemicDrugCompanyByDrugCompanyId(Long drugCompanyId)
     {
-        return epidemicDrugCompanyMapper.deleteEpidemicDrugCompanyByCompanyId(companyId);
+        return epidemicDrugCompanyMapper.deleteEpidemicDrugCompanyByDrugCompanyId(drugCompanyId);
     }
 }

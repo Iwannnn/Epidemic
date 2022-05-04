@@ -9,28 +9,31 @@ import zstu.epidemic.common.core.domain.BaseEntity;
  * 并发症管理对象 epidemic_complication
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 public class EpidemicComplication extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** 并发症id */
-    @Excel(name = "并发症id")
-    private Long complicationId;
+    /** 传染病并发症关联id */
+    private Long infectCompId;
 
-    /** 传染病id（引发） */
-    @Excel(name = "传染病id", readConverterExp = "引=发")
+    /** 传染病id */
+    @Excel(name = "传染病id")
     private Long infectiousId;
 
-    public void setComplicationId(Long complicationId) 
+    /** 并发症id */
+    @Excel(name = "并发症id")
+    private Long compId;
+
+    public void setInfectCompId(Long infectCompId) 
     {
-        this.complicationId = complicationId;
+        this.infectCompId = infectCompId;
     }
 
-    public Long getComplicationId() 
+    public Long getInfectCompId() 
     {
-        return complicationId;
+        return infectCompId;
     }
     public void setInfectiousId(Long infectiousId) 
     {
@@ -41,12 +44,22 @@ public class EpidemicComplication extends BaseEntity
     {
         return infectiousId;
     }
+    public void setCompId(Long compId) 
+    {
+        this.compId = compId;
+    }
+
+    public Long getCompId() 
+    {
+        return compId;
+    }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("complicationId", getComplicationId())
+            .append("infectCompId", getInfectCompId())
             .append("infectiousId", getInfectiousId())
+            .append("compId", getCompId())
             .toString();
     }
 }

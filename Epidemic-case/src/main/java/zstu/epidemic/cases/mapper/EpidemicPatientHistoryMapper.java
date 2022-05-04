@@ -1,23 +1,23 @@
-package zstu.epidemic.illness.mapper;
+package zstu.epidemic.cases.mapper;
 
 import java.util.List;
-import zstu.epidemic.illness.domain.EpidemicPatientHistory;
+import zstu.epidemic.cases.domain.EpidemicPatientHistory;
 
 /**
  * 病史管理Mapper接口
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 public interface EpidemicPatientHistoryMapper 
 {
     /**
      * 查询病史管理
      * 
-     * @param patientId 病史管理主键
+     * @param patientHistoryId 病史管理主键
      * @return 病史管理
      */
-    public EpidemicPatientHistory selectEpidemicPatientHistoryByPatientId(Long patientId);
+    public EpidemicPatientHistory selectEpidemicPatientHistoryByPatientHistoryId(Long patientHistoryId);
 
     /**
      * 查询病史管理列表
@@ -46,16 +46,16 @@ public interface EpidemicPatientHistoryMapper
     /**
      * 删除病史管理
      * 
-     * @param patientId 病史管理主键
+     * @param patientHistoryId 病史管理主键
      * @return 结果
      */
-    public int deleteEpidemicPatientHistoryByPatientId(Long patientId);
+    public int deleteEpidemicPatientHistoryByPatientHistoryId(Long patientHistoryId);
 
     /**
      * 批量删除病史管理
      * 
-     * @param patientIds 需要删除的数据主键集合
+     * @param patientHistoryIds 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteEpidemicPatientHistoryByPatientIds(Long[] patientIds);
+    public int deleteEpidemicPatientHistoryByPatientHistoryIds(Long[] patientHistoryIds);
 }

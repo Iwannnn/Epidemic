@@ -10,9 +10,9 @@ export function listSequelae(query) {
 }
 
 // 查询后遗症详细
-export function getSequelae(sequelaeId) {
+export function getSequelae(illnessSeqId) {
   return request({
-    url: '/illness/sequelae/' + sequelaeId,
+    url: '/illness/sequelae/' + illnessSeqId,
     method: 'get'
   })
 }
@@ -36,9 +36,9 @@ export function updateSequelae(data) {
 }
 
 // 删除后遗症
-export function delSequelae(sequelaeId) {
+export function delSequelae(illnessSeqId) {
   return request({
-    url: '/illness/sequelae/' + sequelaeId,
+    url: '/illness/sequelae/' + illnessSeqId,
     method: 'delete'
   })
 }

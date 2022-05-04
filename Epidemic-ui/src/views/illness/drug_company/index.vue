@@ -1,18 +1,18 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="公司id" prop="companyId">
+      <el-form-item label="公司id" prop="compId">
         <el-input
-          v-model="queryParams.companyId"
+          v-model="queryParams.compId"
           placeholder="请输入公司id"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="药品id" prop="drugId">
+      <el-form-item label="药物id" prop="medicineId">
         <el-input
-          v-model="queryParams.drugId"
-          placeholder="请输入药品id"
+          v-model="queryParams.medicineId"
+          placeholder="请输入药物id"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -71,8 +71,9 @@
 
     <el-table v-loading="loading" :data="drug_companyList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="公司id" align="center" prop="companyId" />
-      <el-table-column label="药品id" align="center" prop="drugId" />
+      <el-table-column label="药品公司关联id" align="center" prop="drugCompanyId" />
+      <el-table-column label="公司id" align="center" prop="compId" />
+      <el-table-column label="药物id" align="center" prop="medicineId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -104,6 +105,12 @@
     <!-- 添加或修改公司药品管理对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="公司id" prop="compId">
+          <el-input v-model="form.compId" placeholder="请输入公司id" />
+        </el-form-item>
+        <el-form-item label="药物id" prop="medicineId">
+          <el-input v-model="form.medicineId" placeholder="请输入药物id" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -142,13 +149,19 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        companyId: null,
-        drugId: null
+        compId: null,
+        medicineId: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
+        compId: [
+          { required: true, message: "公司id不能为空", trigger: "blur" }
+        ],
+        medicineId: [
+          { required: true, message: "药物id不能为空", trigger: "blur" }
+        ]
       }
     };
   },
@@ -173,8 +186,9 @@ export default {
     // 表单重置
     reset() {
       this.form = {
-        companyId: null,
-        drugId: null
+        drugCompanyId: null,
+        compId: null,
+        medicineId: null
       };
       this.resetForm("form");
     },
@@ -190,7 +204,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.companyId)
+      this.ids = selection.map(item => item.drugCompanyId)
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
@@ -203,8 +217,8 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const companyId = row.companyId || this.ids
-      getDrug_company(companyId).then(response => {
+      const drugCompanyId = row.drugCompanyId || this.ids
+      getDrug_company(drugCompanyId).then(response => {
         this.form = response.data;
         this.open = true;
         this.title = "修改公司药品管理";
@@ -214,7 +228,7 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.companyId != null) {
+          if (this.form.drugCompanyId != null) {
             updateDrug_company(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
@@ -232,9 +246,9 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const companyIds = row.companyId || this.ids;
-      this.$modal.confirm('是否确认删除公司药品管理编号为"' + companyIds + '"的数据项？').then(function() {
-        return delDrug_company(companyIds);
+      const drugCompanyIds = row.drugCompanyId || this.ids;
+      this.$modal.confirm('是否确认删除公司药品管理编号为"' + drugCompanyIds + '"的数据项？').then(function() {
+        return delDrug_company(drugCompanyIds);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");

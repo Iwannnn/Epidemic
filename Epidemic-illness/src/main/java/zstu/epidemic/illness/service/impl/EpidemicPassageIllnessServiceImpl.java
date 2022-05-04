@@ -11,7 +11,7 @@ import zstu.epidemic.illness.service.IEpidemicPassageIllnessService;
  * 文章疾病Service业务层处理
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @Service
 public class EpidemicPassageIllnessServiceImpl implements IEpidemicPassageIllnessService 
@@ -22,13 +22,13 @@ public class EpidemicPassageIllnessServiceImpl implements IEpidemicPassageIllnes
     /**
      * 查询文章疾病
      * 
-     * @param passageId 文章疾病主键
+     * @param passageIllnessId 文章疾病主键
      * @return 文章疾病
      */
     @Override
-    public EpidemicPassageIllness selectEpidemicPassageIllnessByPassageId(Long passageId)
+    public EpidemicPassageIllness selectEpidemicPassageIllnessByPassageIllnessId(Long passageIllnessId)
     {
-        return epidemicPassageIllnessMapper.selectEpidemicPassageIllnessByPassageId(passageId);
+        return epidemicPassageIllnessMapper.selectEpidemicPassageIllnessByPassageIllnessId(passageIllnessId);
     }
 
     /**
@@ -70,24 +70,24 @@ public class EpidemicPassageIllnessServiceImpl implements IEpidemicPassageIllnes
     /**
      * 批量删除文章疾病
      * 
-     * @param passageIds 需要删除的文章疾病主键
+     * @param passageIllnessIds 需要删除的文章疾病主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicPassageIllnessByPassageIds(Long[] passageIds)
+    public int deleteEpidemicPassageIllnessByPassageIllnessIds(Long[] passageIllnessIds)
     {
-        return epidemicPassageIllnessMapper.deleteEpidemicPassageIllnessByPassageIds(passageIds);
+        return epidemicPassageIllnessMapper.deleteEpidemicPassageIllnessByPassageIllnessIds(passageIllnessIds);
     }
 
     /**
      * 删除文章疾病信息
      * 
-     * @param passageId 文章疾病主键
+     * @param passageIllnessId 文章疾病主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicPassageIllnessByPassageId(Long passageId)
+    public int deleteEpidemicPassageIllnessByPassageIllnessId(Long passageIllnessId)
     {
-        return epidemicPassageIllnessMapper.deleteEpidemicPassageIllnessByPassageId(passageId);
+        return epidemicPassageIllnessMapper.deleteEpidemicPassageIllnessByPassageIllnessId(passageIllnessId);
     }
 }

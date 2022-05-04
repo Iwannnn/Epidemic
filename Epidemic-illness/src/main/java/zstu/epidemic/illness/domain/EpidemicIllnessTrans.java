@@ -9,44 +9,57 @@ import zstu.epidemic.common.core.domain.BaseEntity;
  * 疾病传播方式对象 epidemic_illness_trans
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 public class EpidemicIllnessTrans extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
+    /** 疾病传染方式id */
+    private Long illnessTransId;
+
     /** 传播方式id */
     @Excel(name = "传播方式id")
-    private Long transId;
+    private Long tranId;
 
     /** 疾病id */
     @Excel(name = "疾病id")
-    private Long illnessId;
+    private Long infectId;
 
-    public void setTransId(Long transId) 
+    public void setIllnessTransId(Long illnessTransId) 
     {
-        this.transId = transId;
+        this.illnessTransId = illnessTransId;
     }
 
-    public Long getTransId() 
+    public Long getIllnessTransId() 
     {
-        return transId;
+        return illnessTransId;
     }
-    public void setIllnessId(Long illnessId) 
+    public void setTranId(Long tranId) 
     {
-        this.illnessId = illnessId;
+        this.tranId = tranId;
     }
 
-    public Long getIllnessId() 
+    public Long getTranId() 
     {
-        return illnessId;
+        return tranId;
+    }
+    public void setInfectId(Long infectId) 
+    {
+        this.infectId = infectId;
+    }
+
+    public Long getInfectId() 
+    {
+        return infectId;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("transId", getTransId())
-            .append("illnessId", getIllnessId())
+            .append("illnessTransId", getIllnessTransId())
+            .append("tranId", getTranId())
+            .append("infectId", getInfectId())
             .toString();
     }
 }

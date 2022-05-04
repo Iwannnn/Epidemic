@@ -5,55 +5,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="zstu.epidemic.illness.mapper.EpidemicSequelaeMapper">
     
     <resultMap type="EpidemicSequelae" id="EpidemicSequelaeResult">
-        <result property="sequelaeId"    column="sequelae_id"    />
-        <result property="infectiousId"    column="infectious_id"    />
+        <result property="illnessSeqId"    column="illness_seq_id"    />
+        <result property="seqId"    column="seq_id"    />
+        <result property="infectId"    column="infect_id"    />
     </resultMap>
 
     <sql id="selectEpidemicSequelaeVo">
-        select sequelae_id, infectious_id from epidemic_sequelae
+        select illness_seq_id, seq_id, infect_id from epidemic_sequelae
     </sql>
 
     <select id="selectEpidemicSequelaeList" parameterType="EpidemicSequelae" resultMap="EpidemicSequelaeResult">
         <include refid="selectEpidemicSequelaeVo"/>
         <where>  
-            <if test="sequelaeId != null "> and sequelae_id = #{sequelaeId}</if>
-            <if test="infectiousId != null "> and infectious_id = #{infectiousId}</if>
+            <if test="seqId != null "> and seq_id = #{seqId}</if>
+            <if test="infectId != null "> and infect_id = #{infectId}</if>
         </where>
     </select>
     
-    <select id="selectEpidemicSequelaeBySequelaeId" parameterType="Long" resultMap="EpidemicSequelaeResult">
+    <select id="selectEpidemicSequelaeByIllnessSeqId" parameterType="Long" resultMap="EpidemicSequelaeResult">
         <include refid="selectEpidemicSequelaeVo"/>
-        where sequelae_id = #{sequelaeId}
+        where illness_seq_id = #{illnessSeqId}
     </select>
         
-    <insert id="insertEpidemicSequelae" parameterType="EpidemicSequelae">
+    <insert id="insertEpidemicSequelae" parameterType="EpidemicSequelae" useGeneratedKeys="true" keyProperty="illnessSeqId">
         insert into epidemic_sequelae
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="sequelaeId != null">sequelae_id,</if>
-            <if test="infectiousId != null">infectious_id,</if>
+            <if test="seqId != null">seq_id,</if>
+            <if test="infectId != null">infect_id,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="sequelaeId != null">#{sequelaeId},</if>
-            <if test="infectiousId != null">#{infectiousId},</if>
+            <if test="seqId != null">#{seqId},</if>
+            <if test="infectId != null">#{infectId},</if>
          </trim>
     </insert>
 
     <update id="updateEpidemicSequelae" parameterType="EpidemicSequelae">
         update epidemic_sequelae
         <trim prefix="SET" suffixOverrides=",">
-            <if test="infectiousId != null">infectious_id = #{infectiousId},</if>
+            <if test="seqId != null">seq_id = #{seqId},</if>
+            <if test="infectId != null">infect_id = #{infectId},</if>
         </trim>
-        where sequelae_id = #{sequelaeId}
+        where illness_seq_id = #{illnessSeqId}
     </update>
 
-    <delete id="deleteEpidemicSequelaeBySequelaeId" parameterType="Long">
-        delete from epidemic_sequelae where sequelae_id = #{sequelaeId}
+    <delete id="deleteEpidemicSequelaeByIllnessSeqId" parameterType="Long">
+        delete from epidemic_sequelae where illness_seq_id = #{illnessSeqId}
     </delete>
 
-    <delete id="deleteEpidemicSequelaeBySequelaeIds" parameterType="String">
-        delete from epidemic_sequelae where sequelae_id in 
-        <foreach item="sequelaeId" collection="array" open="(" separator="," close=")">
-            #{sequelaeId}
+    <delete id="deleteEpidemicSequelaeByIllnessSeqIds" parameterType="String">
+        delete from epidemic_sequelae where illness_seq_id in 
+        <foreach item="illnessSeqId" collection="array" open="(" separator="," close=")">
+            #{illnessSeqId}
         </foreach>
     </delete>
 </mapper>

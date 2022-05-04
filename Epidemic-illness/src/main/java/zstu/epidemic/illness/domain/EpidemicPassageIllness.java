@@ -9,44 +9,57 @@ import zstu.epidemic.common.core.domain.BaseEntity;
  * 文章疾病对象 epidemic_passage_illness
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 public class EpidemicPassageIllness extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
+    /** 文章疾病id */
+    private Long passageIllnessId;
+
     /** 文章id */
     @Excel(name = "文章id")
-    private Long passageId;
+    private Long passId;
 
     /** 疾病id */
     @Excel(name = "疾病id")
-    private Long illnessId;
+    private Long infectId;
 
-    public void setPassageId(Long passageId) 
+    public void setPassageIllnessId(Long passageIllnessId) 
     {
-        this.passageId = passageId;
+        this.passageIllnessId = passageIllnessId;
     }
 
-    public Long getPassageId() 
+    public Long getPassageIllnessId() 
     {
-        return passageId;
+        return passageIllnessId;
     }
-    public void setIllnessId(Long illnessId) 
+    public void setPassId(Long passId) 
     {
-        this.illnessId = illnessId;
+        this.passId = passId;
     }
 
-    public Long getIllnessId() 
+    public Long getPassId() 
     {
-        return illnessId;
+        return passId;
+    }
+    public void setInfectId(Long infectId) 
+    {
+        this.infectId = infectId;
+    }
+
+    public Long getInfectId() 
+    {
+        return infectId;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("passageId", getPassageId())
-            .append("illnessId", getIllnessId())
+            .append("passageIllnessId", getPassageIllnessId())
+            .append("passId", getPassId())
+            .append("infectId", getInfectId())
             .toString();
     }
 }

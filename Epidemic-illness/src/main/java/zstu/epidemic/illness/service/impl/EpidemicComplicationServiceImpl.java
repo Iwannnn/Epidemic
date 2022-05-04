@@ -11,7 +11,7 @@ import zstu.epidemic.illness.service.IEpidemicComplicationService;
  * 并发症管理Service业务层处理
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @Service
 public class EpidemicComplicationServiceImpl implements IEpidemicComplicationService 
@@ -22,13 +22,13 @@ public class EpidemicComplicationServiceImpl implements IEpidemicComplicationSer
     /**
      * 查询并发症管理
      * 
-     * @param complicationId 并发症管理主键
+     * @param infectCompId 并发症管理主键
      * @return 并发症管理
      */
     @Override
-    public EpidemicComplication selectEpidemicComplicationByComplicationId(Long complicationId)
+    public EpidemicComplication selectEpidemicComplicationByInfectCompId(Long infectCompId)
     {
-        return epidemicComplicationMapper.selectEpidemicComplicationByComplicationId(complicationId);
+        return epidemicComplicationMapper.selectEpidemicComplicationByInfectCompId(infectCompId);
     }
 
     /**
@@ -70,24 +70,24 @@ public class EpidemicComplicationServiceImpl implements IEpidemicComplicationSer
     /**
      * 批量删除并发症管理
      * 
-     * @param complicationIds 需要删除的并发症管理主键
+     * @param infectCompIds 需要删除的并发症管理主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicComplicationByComplicationIds(Long[] complicationIds)
+    public int deleteEpidemicComplicationByInfectCompIds(Long[] infectCompIds)
     {
-        return epidemicComplicationMapper.deleteEpidemicComplicationByComplicationIds(complicationIds);
+        return epidemicComplicationMapper.deleteEpidemicComplicationByInfectCompIds(infectCompIds);
     }
 
     /**
      * 删除并发症管理信息
      * 
-     * @param complicationId 并发症管理主键
+     * @param infectCompId 并发症管理主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicComplicationByComplicationId(Long complicationId)
+    public int deleteEpidemicComplicationByInfectCompId(Long infectCompId)
     {
-        return epidemicComplicationMapper.deleteEpidemicComplicationByComplicationId(complicationId);
+        return epidemicComplicationMapper.deleteEpidemicComplicationByInfectCompId(infectCompId);
     }
 }

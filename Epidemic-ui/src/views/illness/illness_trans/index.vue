@@ -1,17 +1,17 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="传播方式id" prop="transId">
+      <el-form-item label="传播方式id" prop="tranId">
         <el-input
-          v-model="queryParams.transId"
+          v-model="queryParams.tranId"
           placeholder="请输入传播方式id"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="疾病id" prop="illnessId">
+      <el-form-item label="疾病id" prop="infectId">
         <el-input
-          v-model="queryParams.illnessId"
+          v-model="queryParams.infectId"
           placeholder="请输入疾病id"
           clearable
           @keyup.enter.native="handleQuery"
@@ -71,8 +71,9 @@
 
     <el-table v-loading="loading" :data="illness_transList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="传播方式id" align="center" prop="transId" />
-      <el-table-column label="疾病id" align="center" prop="illnessId" />
+      <el-table-column label="疾病传染方式id" align="center" prop="illnessTransId" />
+      <el-table-column label="传播方式id" align="center" prop="tranId" />
+      <el-table-column label="疾病id" align="center" prop="infectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -104,6 +105,12 @@
     <!-- 添加或修改疾病传播方式对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="传播方式id" prop="tranId">
+          <el-input v-model="form.tranId" placeholder="请输入传播方式id" />
+        </el-form-item>
+        <el-form-item label="疾病id" prop="infectId">
+          <el-input v-model="form.infectId" placeholder="请输入疾病id" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -142,13 +149,19 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        transId: null,
-        illnessId: null
+        tranId: null,
+        infectId: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
+        tranId: [
+          { required: true, message: "传播方式id不能为空", trigger: "blur" }
+        ],
+        infectId: [
+          { required: true, message: "疾病id不能为空", trigger: "blur" }
+        ]
       }
     };
   },
@@ -173,8 +186,9 @@ export default {
     // 表单重置
     reset() {
       this.form = {
-        transId: null,
-        illnessId: null
+        illnessTransId: null,
+        tranId: null,
+        infectId: null
       };
       this.resetForm("form");
     },
@@ -190,7 +204,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.transId)
+      this.ids = selection.map(item => item.illnessTransId)
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
@@ -203,8 +217,8 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const transId = row.transId || this.ids
-      getIllness_trans(transId).then(response => {
+      const illnessTransId = row.illnessTransId || this.ids
+      getIllness_trans(illnessTransId).then(response => {
         this.form = response.data;
         this.open = true;
         this.title = "修改疾病传播方式";
@@ -214,7 +228,7 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.transId != null) {
+          if (this.form.illnessTransId != null) {
             updateIllness_trans(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
@@ -232,9 +246,9 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const transIds = row.transId || this.ids;
-      this.$modal.confirm('是否确认删除疾病传播方式编号为"' + transIds + '"的数据项？').then(function() {
-        return delIllness_trans(transIds);
+      const illnessTransIds = row.illnessTransId || this.ids;
+      this.$modal.confirm('是否确认删除疾病传播方式编号为"' + illnessTransIds + '"的数据项？').then(function() {
+        return delIllness_trans(illnessTransIds);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");

@@ -1,17 +1,17 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="文章id" prop="passageId">
+      <el-form-item label="文章id" prop="passId">
         <el-input
-          v-model="queryParams.passageId"
+          v-model="queryParams.passId"
           placeholder="请输入文章id"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="疾病id" prop="illnessId">
+      <el-form-item label="疾病id" prop="infectId">
         <el-input
-          v-model="queryParams.illnessId"
+          v-model="queryParams.infectId"
           placeholder="请输入疾病id"
           clearable
           @keyup.enter.native="handleQuery"
@@ -71,8 +71,9 @@
 
     <el-table v-loading="loading" :data="illness_passageList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="文章id" align="center" prop="passageId" />
-      <el-table-column label="疾病id" align="center" prop="illnessId" />
+      <el-table-column label="文章疾病id" align="center" prop="passageIllnessId" />
+      <el-table-column label="文章id" align="center" prop="passId" />
+      <el-table-column label="疾病id" align="center" prop="infectId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -104,6 +105,12 @@
     <!-- 添加或修改文章疾病对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="文章id" prop="passId">
+          <el-input v-model="form.passId" placeholder="请输入文章id" />
+        </el-form-item>
+        <el-form-item label="疾病id" prop="infectId">
+          <el-input v-model="form.infectId" placeholder="请输入疾病id" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -142,13 +149,19 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        passageId: null,
-        illnessId: null
+        passId: null,
+        infectId: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
+        passId: [
+          { required: true, message: "文章id不能为空", trigger: "blur" }
+        ],
+        infectId: [
+          { required: true, message: "疾病id不能为空", trigger: "blur" }
+        ]
       }
     };
   },
@@ -173,8 +186,9 @@ export default {
     // 表单重置
     reset() {
       this.form = {
-        passageId: null,
-        illnessId: null
+        passageIllnessId: null,
+        passId: null,
+        infectId: null
       };
       this.resetForm("form");
     },
@@ -190,7 +204,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.passageId)
+      this.ids = selection.map(item => item.passageIllnessId)
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
@@ -203,8 +217,8 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const passageId = row.passageId || this.ids
-      getIllness_passage(passageId).then(response => {
+      const passageIllnessId = row.passageIllnessId || this.ids
+      getIllness_passage(passageIllnessId).then(response => {
         this.form = response.data;
         this.open = true;
         this.title = "修改文章疾病";
@@ -214,7 +228,7 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.passageId != null) {
+          if (this.form.passageIllnessId != null) {
             updateIllness_passage(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
@@ -232,9 +246,9 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const passageIds = row.passageId || this.ids;
-      this.$modal.confirm('是否确认删除文章疾病编号为"' + passageIds + '"的数据项？').then(function() {
-        return delIllness_passage(passageIds);
+      const passageIllnessIds = row.passageIllnessId || this.ids;
+      this.$modal.confirm('是否确认删除文章疾病编号为"' + passageIllnessIds + '"的数据项？').then(function() {
+        return delIllness_passage(passageIllnessIds);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");

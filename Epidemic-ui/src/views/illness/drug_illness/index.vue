@@ -1,18 +1,18 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="药物id" prop="drugId">
+      <el-form-item label="疾病id" prop="diseaseId">
         <el-input
-          v-model="queryParams.drugId"
-          placeholder="请输入药物id"
+          v-model="queryParams.diseaseId"
+          placeholder="请输入疾病id"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="疾病id" prop="illnessId">
+      <el-form-item label="药物id" prop="drugId">
         <el-input
-          v-model="queryParams.illnessId"
-          placeholder="请输入疾病id"
+          v-model="queryParams.drugId"
+          placeholder="请输入药物id"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -71,8 +71,9 @@
 
     <el-table v-loading="loading" :data="drug_illnessList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
+      <el-table-column label="药品疾病id" align="center" prop="drugIllnessId" />
+      <el-table-column label="疾病id" align="center" prop="diseaseId" />
       <el-table-column label="药物id" align="center" prop="drugId" />
-      <el-table-column label="疾病id" align="center" prop="illnessId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -104,6 +105,12 @@
     <!-- 添加或修改疾病药品对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="疾病id" prop="diseaseId">
+          <el-input v-model="form.diseaseId" placeholder="请输入疾病id" />
+        </el-form-item>
+        <el-form-item label="药物id" prop="drugId">
+          <el-input v-model="form.drugId" placeholder="请输入药物id" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -142,13 +149,19 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        drugId: null,
-        illnessId: null
+        diseaseId: null,
+        drugId: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
+        diseaseId: [
+          { required: true, message: "疾病id不能为空", trigger: "blur" }
+        ],
+        drugId: [
+          { required: true, message: "药物id不能为空", trigger: "blur" }
+        ]
       }
     };
   },
@@ -173,8 +186,9 @@ export default {
     // 表单重置
     reset() {
       this.form = {
-        drugId: null,
-        illnessId: null
+        drugIllnessId: null,
+        diseaseId: null,
+        drugId: null
       };
       this.resetForm("form");
     },
@@ -190,7 +204,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.drugId)
+      this.ids = selection.map(item => item.drugIllnessId)
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
@@ -203,8 +217,8 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const drugId = row.drugId || this.ids
-      getDrug_illness(drugId).then(response => {
+      const drugIllnessId = row.drugIllnessId || this.ids
+      getDrug_illness(drugIllnessId).then(response => {
         this.form = response.data;
         this.open = true;
         this.title = "修改疾病药品";
@@ -214,7 +228,7 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.drugId != null) {
+          if (this.form.drugIllnessId != null) {
             updateDrug_illness(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
@@ -232,9 +246,9 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const drugIds = row.drugId || this.ids;
-      this.$modal.confirm('是否确认删除疾病药品编号为"' + drugIds + '"的数据项？').then(function() {
-        return delDrug_illness(drugIds);
+      const drugIllnessIds = row.drugIllnessId || this.ids;
+      this.$modal.confirm('是否确认删除疾病药品编号为"' + drugIllnessIds + '"的数据项？').then(function() {
+        return delDrug_illness(drugIllnessIds);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");

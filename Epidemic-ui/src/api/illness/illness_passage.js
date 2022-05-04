@@ -10,9 +10,9 @@ export function listIllness_passage(query) {
 }
 
 // 查询文章疾病详细
-export function getIllness_passage(passageId) {
+export function getIllness_passage(passageIllnessId) {
   return request({
-    url: '/illness/illness_passage/' + passageId,
+    url: '/illness/illness_passage/' + passageIllnessId,
     method: 'get'
   })
 }
@@ -36,9 +36,9 @@ export function updateIllness_passage(data) {
 }
 
 // 删除文章疾病
-export function delIllness_passage(passageId) {
+export function delIllness_passage(passageIllnessId) {
   return request({
-    url: '/illness/illness_passage/' + passageId,
+    url: '/illness/illness_passage/' + passageIllnessId,
     method: 'delete'
   })
 }

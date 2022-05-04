@@ -20,7 +20,7 @@ public class AnalysisTest {
 	private IEpidemicPatientService epidemicPatientService;
 
 	@Test
-	void AnalysisTest() {
+	void analysisTest() {
 		ArrayList<EpidemicCase> list = epidemicAnalysisService.getCaseListByIllnessName("新冠疫情");
 		System.out.println(list);
 	}

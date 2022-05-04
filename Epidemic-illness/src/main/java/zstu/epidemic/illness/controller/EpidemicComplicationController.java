@@ -25,7 +25,7 @@ import zstu.epidemic.common.core.page.TableDataInfo;
  * 并发症管理Controller
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @RestController
 @RequestMapping("/illness/complication")
@@ -63,10 +63,10 @@ public class EpidemicComplicationController extends BaseController
      * 获取并发症管理详细信息
      */
     @PreAuthorize("@ss.hasPermi('illness:complication:query')")
-    @GetMapping(value = "/{complicationId}")
-    public AjaxResult getInfo(@PathVariable("complicationId") Long complicationId)
+    @GetMapping(value = "/{infectCompId}")
+    public AjaxResult getInfo(@PathVariable("infectCompId") Long infectCompId)
     {
-        return AjaxResult.success(epidemicComplicationService.selectEpidemicComplicationByComplicationId(complicationId));
+        return AjaxResult.success(epidemicComplicationService.selectEpidemicComplicationByInfectCompId(infectCompId));
     }
 
     /**
@@ -96,9 +96,9 @@ public class EpidemicComplicationController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('illness:complication:remove')")
     @Log(title = "并发症管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{complicationIds}")
-    public AjaxResult remove(@PathVariable Long[] complicationIds)
+	@DeleteMapping("/{infectCompIds}")
+    public AjaxResult remove(@PathVariable Long[] infectCompIds)
     {
-        return toAjax(epidemicComplicationService.deleteEpidemicComplicationByComplicationIds(complicationIds));
+        return toAjax(epidemicComplicationService.deleteEpidemicComplicationByInfectCompIds(infectCompIds));
     }
 }

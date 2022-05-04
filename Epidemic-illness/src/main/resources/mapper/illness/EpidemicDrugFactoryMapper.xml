@@ -5,55 +5,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="zstu.epidemic.illness.mapper.EpidemicDrugFactoryMapper">
     
     <resultMap type="EpidemicDrugFactory" id="EpidemicDrugFactoryResult">
-        <result property="factoryId"    column="factory_id"    />
-        <result property="drugId"    column="drug_id"    />
+        <result property="drugFactoryId"    column="drug_factory_id"    />
+        <result property="factId"    column="fact_id"    />
+        <result property="medicineId"    column="medicine_id"    />
     </resultMap>
 
     <sql id="selectEpidemicDrugFactoryVo">
-        select factory_id, drug_id from epidemic_drug_factory
+        select drug_factory_id, fact_id, medicine_id from epidemic_drug_factory
     </sql>
 
     <select id="selectEpidemicDrugFactoryList" parameterType="EpidemicDrugFactory" resultMap="EpidemicDrugFactoryResult">
         <include refid="selectEpidemicDrugFactoryVo"/>
         <where>  
-            <if test="factoryId != null "> and factory_id = #{factoryId}</if>
-            <if test="drugId != null "> and drug_id = #{drugId}</if>
+            <if test="factId != null "> and fact_id = #{factId}</if>
+            <if test="medicineId != null "> and medicine_id = #{medicineId}</if>
         </where>
     </select>
     
-    <select id="selectEpidemicDrugFactoryByFactoryId" parameterType="Long" resultMap="EpidemicDrugFactoryResult">
+    <select id="selectEpidemicDrugFactoryByDrugFactoryId" parameterType="Long" resultMap="EpidemicDrugFactoryResult">
         <include refid="selectEpidemicDrugFactoryVo"/>
-        where factory_id = #{factoryId}
+        where drug_factory_id = #{drugFactoryId}
     </select>
         
-    <insert id="insertEpidemicDrugFactory" parameterType="EpidemicDrugFactory">
+    <insert id="insertEpidemicDrugFactory" parameterType="EpidemicDrugFactory" useGeneratedKeys="true" keyProperty="drugFactoryId">
         insert into epidemic_drug_factory
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="factoryId != null">factory_id,</if>
-            <if test="drugId != null">drug_id,</if>
+            <if test="factId != null">fact_id,</if>
+            <if test="medicineId != null">medicine_id,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="factoryId != null">#{factoryId},</if>
-            <if test="drugId != null">#{drugId},</if>
+            <if test="factId != null">#{factId},</if>
+            <if test="medicineId != null">#{medicineId},</if>
          </trim>
     </insert>
 
     <update id="updateEpidemicDrugFactory" parameterType="EpidemicDrugFactory">
         update epidemic_drug_factory
         <trim prefix="SET" suffixOverrides=",">
-            <if test="drugId != null">drug_id = #{drugId},</if>
+            <if test="factId != null">fact_id = #{factId},</if>
+            <if test="medicineId != null">medicine_id = #{medicineId},</if>
         </trim>
-        where factory_id = #{factoryId}
+        where drug_factory_id = #{drugFactoryId}
     </update>
 
-    <delete id="deleteEpidemicDrugFactoryByFactoryId" parameterType="Long">
-        delete from epidemic_drug_factory where factory_id = #{factoryId}
+    <delete id="deleteEpidemicDrugFactoryByDrugFactoryId" parameterType="Long">
+        delete from epidemic_drug_factory where drug_factory_id = #{drugFactoryId}
     </delete>
 
-    <delete id="deleteEpidemicDrugFactoryByFactoryIds" parameterType="String">
-        delete from epidemic_drug_factory where factory_id in 
-        <foreach item="factoryId" collection="array" open="(" separator="," close=")">
-            #{factoryId}
+    <delete id="deleteEpidemicDrugFactoryByDrugFactoryIds" parameterType="String">
+        delete from epidemic_drug_factory where drug_factory_id in 
+        <foreach item="drugFactoryId" collection="array" open="(" separator="," close=")">
+            #{drugFactoryId}
         </foreach>
     </delete>
 </mapper>

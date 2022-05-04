@@ -1,17 +1,17 @@
-package zstu.epidemic.illness.service.impl;
+package zstu.epidemic.cases.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import zstu.epidemic.illness.mapper.EpidemicPatientHistoryMapper;
-import zstu.epidemic.illness.domain.EpidemicPatientHistory;
-import zstu.epidemic.illness.service.IEpidemicPatientHistoryService;
+import zstu.epidemic.cases.mapper.EpidemicPatientHistoryMapper;
+import zstu.epidemic.cases.domain.EpidemicPatientHistory;
+import zstu.epidemic.cases.service.IEpidemicPatientHistoryService;
 
 /**
  * 病史管理Service业务层处理
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 @Service
 public class EpidemicPatientHistoryServiceImpl implements IEpidemicPatientHistoryService 
@@ -22,13 +22,13 @@ public class EpidemicPatientHistoryServiceImpl implements IEpidemicPatientHistor
     /**
      * 查询病史管理
      * 
-     * @param patientId 病史管理主键
+     * @param patientHistoryId 病史管理主键
      * @return 病史管理
      */
     @Override
-    public EpidemicPatientHistory selectEpidemicPatientHistoryByPatientId(Long patientId)
+    public EpidemicPatientHistory selectEpidemicPatientHistoryByPatientHistoryId(Long patientHistoryId)
     {
-        return epidemicPatientHistoryMapper.selectEpidemicPatientHistoryByPatientId(patientId);
+        return epidemicPatientHistoryMapper.selectEpidemicPatientHistoryByPatientHistoryId(patientHistoryId);
     }
 
     /**
@@ -70,24 +70,24 @@ public class EpidemicPatientHistoryServiceImpl implements IEpidemicPatientHistor
     /**
      * 批量删除病史管理
      * 
-     * @param patientIds 需要删除的病史管理主键
+     * @param patientHistoryIds 需要删除的病史管理主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicPatientHistoryByPatientIds(Long[] patientIds)
+    public int deleteEpidemicPatientHistoryByPatientHistoryIds(Long[] patientHistoryIds)
     {
-        return epidemicPatientHistoryMapper.deleteEpidemicPatientHistoryByPatientIds(patientIds);
+        return epidemicPatientHistoryMapper.deleteEpidemicPatientHistoryByPatientHistoryIds(patientHistoryIds);
     }
 
     /**
      * 删除病史管理信息
      * 
-     * @param patientId 病史管理主键
+     * @param patientHistoryId 病史管理主键
      * @return 结果
      */
     @Override
-    public int deleteEpidemicPatientHistoryByPatientId(Long patientId)
+    public int deleteEpidemicPatientHistoryByPatientHistoryId(Long patientHistoryId)
     {
-        return epidemicPatientHistoryMapper.deleteEpidemicPatientHistoryByPatientId(patientId);
+        return epidemicPatientHistoryMapper.deleteEpidemicPatientHistoryByPatientHistoryId(patientHistoryId);
     }
 }

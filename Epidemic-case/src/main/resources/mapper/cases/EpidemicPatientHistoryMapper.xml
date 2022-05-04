@@ -2,58 +2,60 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="zstu.epidemic.illness.mapper.EpidemicPatientHistoryMapper">
+<mapper namespace="zstu.epidemic.cases.mapper.EpidemicPatientHistoryMapper">
     
     <resultMap type="EpidemicPatientHistory" id="EpidemicPatientHistoryResult">
-        <result property="patientId"    column="patient_id"    />
-        <result property="illnessId"    column="illness_id"    />
+        <result property="patientHistoryId"    column="patient_history_id"    />
+        <result property="patId"    column="pat_id"    />
+        <result property="diseaseId"    column="disease_id"    />
     </resultMap>
 
     <sql id="selectEpidemicPatientHistoryVo">
-        select patient_id, illness_id from epidemic_patient_history
+        select patient_history_id, pat_id, disease_id from epidemic_patient_history
     </sql>
 
     <select id="selectEpidemicPatientHistoryList" parameterType="EpidemicPatientHistory" resultMap="EpidemicPatientHistoryResult">
         <include refid="selectEpidemicPatientHistoryVo"/>
         <where>  
-            <if test="patientId != null "> and patient_id = #{patientId}</if>
-            <if test="illnessId != null "> and illness_id = #{illnessId}</if>
+            <if test="patId != null "> and pat_id = #{patId}</if>
+            <if test="diseaseId != null "> and disease_id = #{diseaseId}</if>
         </where>
     </select>
     
-    <select id="selectEpidemicPatientHistoryByPatientId" parameterType="Long" resultMap="EpidemicPatientHistoryResult">
+    <select id="selectEpidemicPatientHistoryByPatientHistoryId" parameterType="Long" resultMap="EpidemicPatientHistoryResult">
         <include refid="selectEpidemicPatientHistoryVo"/>
-        where patient_id = #{patientId}
+        where patient_history_id = #{patientHistoryId}
     </select>
         
-    <insert id="insertEpidemicPatientHistory" parameterType="EpidemicPatientHistory">
+    <insert id="insertEpidemicPatientHistory" parameterType="EpidemicPatientHistory" useGeneratedKeys="true" keyProperty="patientHistoryId">
         insert into epidemic_patient_history
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="patientId != null">patient_id,</if>
-            <if test="illnessId != null">illness_id,</if>
+            <if test="patId != null">pat_id,</if>
+            <if test="diseaseId != null">disease_id,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="patientId != null">#{patientId},</if>
-            <if test="illnessId != null">#{illnessId},</if>
+            <if test="patId != null">#{patId},</if>
+            <if test="diseaseId != null">#{diseaseId},</if>
          </trim>
     </insert>
 
     <update id="updateEpidemicPatientHistory" parameterType="EpidemicPatientHistory">
         update epidemic_patient_history
         <trim prefix="SET" suffixOverrides=",">
-            <if test="illnessId != null">illness_id = #{illnessId},</if>
+            <if test="patId != null">pat_id = #{patId},</if>
+            <if test="diseaseId != null">disease_id = #{diseaseId},</if>
         </trim>
-        where patient_id = #{patientId}
+        where patient_history_id = #{patientHistoryId}
     </update>
 
-    <delete id="deleteEpidemicPatientHistoryByPatientId" parameterType="Long">
-        delete from epidemic_patient_history where patient_id = #{patientId}
+    <delete id="deleteEpidemicPatientHistoryByPatientHistoryId" parameterType="Long">
+        delete from epidemic_patient_history where patient_history_id = #{patientHistoryId}
     </delete>
 
-    <delete id="deleteEpidemicPatientHistoryByPatientIds" parameterType="String">
-        delete from epidemic_patient_history where patient_id in 
-        <foreach item="patientId" collection="array" open="(" separator="," close=")">
-            #{patientId}
+    <delete id="deleteEpidemicPatientHistoryByPatientHistoryIds" parameterType="String">
+        delete from epidemic_patient_history where patient_history_id in 
+        <foreach item="patientHistoryId" collection="array" open="(" separator="," close=")">
+            #{patientHistoryId}
         </foreach>
     </delete>
 </mapper>

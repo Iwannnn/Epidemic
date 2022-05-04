@@ -10,9 +10,9 @@ export function listIllness_trans(query) {
 }
 
 // 查询疾病传播方式详细
-export function getIllness_trans(transId) {
+export function getIllness_trans(illnessTransId) {
   return request({
-    url: '/illness/illness_trans/' + transId,
+    url: '/illness/illness_trans/' + illnessTransId,
     method: 'get'
   })
 }
@@ -36,9 +36,9 @@ export function updateIllness_trans(data) {
 }
 
 // 删除疾病传播方式
-export function delIllness_trans(transId) {
+export function delIllness_trans(illnessTransId) {
   return request({
-    url: '/illness/illness_trans/' + transId,
+    url: '/illness/illness_trans/' + illnessTransId,
     method: 'delete'
   })
 }

@@ -10,9 +10,9 @@ export function listHistory(query) {
 }
 
 // 查询病史管理详细
-export function getHistory(patientId) {
+export function getHistory(patientHistoryId) {
   return request({
-    url: '/cases/history/' + patientId,
+    url: '/cases/history/' + patientHistoryId,
     method: 'get'
   })
 }
@@ -36,9 +36,9 @@ export function updateHistory(data) {
 }
 
 // 删除病史管理
-export function delHistory(patientId) {
+export function delHistory(patientHistoryId) {
   return request({
-    url: '/cases/history/' + patientId,
+    url: '/cases/history/' + patientHistoryId,
     method: 'delete'
   })
 }

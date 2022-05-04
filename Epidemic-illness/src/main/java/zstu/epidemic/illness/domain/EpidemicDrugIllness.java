@@ -9,20 +9,41 @@ import zstu.epidemic.common.core.domain.BaseEntity;
  * 疾病药品对象 epidemic_drug_illness
  * 
  * @author iwan
- * @date 2022-04-26
+ * @date 2022-05-04
  */
 public class EpidemicDrugIllness extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
+    /** 药品疾病id */
+    private Long drugIllnessId;
+
+    /** 疾病id */
+    @Excel(name = "疾病id")
+    private Long diseaseId;
+
     /** 药物id */
     @Excel(name = "药物id")
     private Long drugId;
 
-    /** 疾病id */
-    @Excel(name = "疾病id")
-    private Long illnessId;
+    public void setDrugIllnessId(Long drugIllnessId) 
+    {
+        this.drugIllnessId = drugIllnessId;
+    }
 
+    public Long getDrugIllnessId() 
+    {
+        return drugIllnessId;
+    }
+    public void setDiseaseId(Long diseaseId) 
+    {
+        this.diseaseId = diseaseId;
+    }
+
+    public Long getDiseaseId() 
+    {
+        return diseaseId;
+    }
     public void setDrugId(Long drugId) 
     {
         this.drugId = drugId;
@@ -32,21 +53,13 @@ public class EpidemicDrugIllness extends BaseEntity
     {
         return drugId;
     }
-    public void setIllnessId(Long illnessId) 
-    {
-        this.illnessId = illnessId;
-    }
-
-    public Long getIllnessId() 
-    {
-        return illnessId;
-    }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("drugIllnessId", getDrugIllnessId())
+            .append("diseaseId", getDiseaseId())
             .append("drugId", getDrugId())
-            .append("illnessId", getIllnessId())
             .toString();
     }
 }
