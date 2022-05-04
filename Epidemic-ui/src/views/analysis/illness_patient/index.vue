@@ -229,6 +229,7 @@ export default {
     methods: {
         get_patient_info() {
             var that = this;
+            this.reset_chart();
             query_patient_info(this.illness_name).then((res) => {
                 console.log(res);
                 var i;
@@ -251,6 +252,44 @@ export default {
         },
         reset() {
             this.illness_name = "";
+        },
+        reset_chart() {
+            (this.age_info = [
+                { name: "   age<10", value: 0 },
+                { name: "10<age<20", value: 0 },
+                { name: "20<age<30", value: 0 },
+                { name: "30<age<40", value: 0 },
+                { name: "40<age<50", value: 0 },
+                { name: "50<age<60", value: 0 },
+                { name: "60<age<70", value: 0 },
+                { name: "70<age", value: 0 },
+            ]),
+                (this.fat_info = [
+                    { name: "   fat<10", value: 0 },
+                    { name: "10<fat<20", value: 0 },
+                    { name: "20<fat<30", value: 0 },
+                    { name: "30<fat<40", value: 0 },
+                    { name: "40<fat", value: 0 },
+                ]),
+                (this.height_info = [
+                    { name: "    height<130", value: 0 },
+                    { name: "130<height<140", value: 0 },
+                    { name: "140<height<150", value: 0 },
+                    { name: "150<height<160", value: 0 },
+                    { name: "160<height<170", value: 0 },
+                    { name: "170<height<180", value: 0 },
+                    { name: "180<height<190", value: 0 },
+                    { name: "190<height", value: 0 },
+                ]),
+                (this.weight_info = [
+                    { name: "   weight<40", value: 0 },
+                    { name: "40<weight<50", value: 0 },
+                    { name: "50<weight<60", value: 0 },
+                    { name: "60<weight<70", value: 0 },
+                    { name: "70<weight<80", value: 0 },
+                    { name: "80<weight<90", value: 0 },
+                    { name: "90<weight", value: 0 },
+                ]);
         },
         init_echart() {
             var ageChart = this.$echarts.init(

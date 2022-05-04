@@ -56,6 +56,8 @@ export default {
     methods: {
         get_diff_time() {
             var that = this;
+            this.option.legend.data = [];
+            this.option.series[0].data = [];
             query_diff_time(this.illness_name).then((res) => {
                 console.log(res);
                 var i;

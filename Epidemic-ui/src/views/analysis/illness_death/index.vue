@@ -64,6 +64,8 @@ export default {
         get_death_rate() {
             // console.log("get_death rate");
             // console.log(this.illness_name);
+            this.option.series[0].data[0].value = 0;
+            this.option.series[0].data[1].value = 0;
             query_death_info(this.illness_name).then((res) => {
                 console.log(res);
                 this.option.series[0].data[0].value = res.data.death_number;
