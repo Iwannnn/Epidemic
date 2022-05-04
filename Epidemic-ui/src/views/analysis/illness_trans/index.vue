@@ -5,13 +5,13 @@
             <el-button @click="reset">重置</el-button>
             <el-button @click="get_drug">确认</el-button>
         </div>
-        <!--    <li>{{items}}<li/>-->
-        <!-- <vue-good-table
-            :columns="columns"
-            :rows="rows"
-            max-height="300px"
-            :line-numbers="true"
-        /> -->
+      <vue-good-table
+        :columns="columns"
+        :rows="rows"
+        max-height="300px"
+        :line-numbers="true"
+      >
+      </vue-good-table>
     </div>
 </template>
 <script>
@@ -22,7 +22,20 @@ import "vue-good-table/dist/vue-good-table.css";
 export default {
     data() {
         return {
-            illness_name: "",
+          columns: [
+            {
+              label: 'trans_id',
+              field: 'trans_id',
+              type:'int',
+            },
+            {
+              label: 'trans_name',
+              field: 'trans_name',
+              type:'string'
+            },
+          ],
+          rows: [],
+          illness_name: "",
         };
     },
     components: {
@@ -33,7 +46,7 @@ export default {
             query_trans(this.illness_name).then((res) => {
                 console.log(res);
                 console.log(res.data);
-                // this.rows = res.data;
+                this.rows = res.data;
             });
         },
         reset() {
