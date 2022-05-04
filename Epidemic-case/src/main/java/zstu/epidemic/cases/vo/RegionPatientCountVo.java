@@ -8,6 +8,7 @@ import lombok.Data;
 public class RegionPatientCountVo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	Long regionId;
+
+	Long region_id;
 	int count;
 }

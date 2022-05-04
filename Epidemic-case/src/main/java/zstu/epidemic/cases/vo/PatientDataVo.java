@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class PatientDataVo {
-	private Long height;
-	private Long weight;
-	private Long fat;
-	private Long age;
+	private int height;
+	private int weight;
+	private int fat;
+	private int age;
 }

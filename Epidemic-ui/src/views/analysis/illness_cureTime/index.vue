@@ -60,10 +60,10 @@ export default {
                 console.log(res);
                 var i;
                 for (i = 0; i < res.data.length; i++) {
-                    that.option.legend.data.push(res.data[i].cureTime + "天");
+                    that.option.legend.data.push(res.data[i].diff_time + "天");
                     that.option.series[0].data.push({
-                        value: res.data[i].curedCount,
-                        name: res.data[i].cureTime + "天",
+                        value: res.data[i].cure_count,
+                        name: res.data[i].diff_time + "天",
                     });
                 }
                 that.init_echart();

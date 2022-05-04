@@ -24,15 +24,52 @@
     </resultMap>
 
 
-
-
     <select id="getCaseListByIllnessName" parameterType="java.lang.String" resultMap="EpidemicCaseResult">
         SELECT * FROM `epidemic_case` WHERE `illness_id`=(
 	        SELECT `illness_id` FROM `epidemic_illness` WHERE `illness_name`=#{illness_name}
         )
     </select>
 
+	<select id="getDeathRate" parameterType="java.lang.String" resultType="zstu.epidemic.cases.vo.DeathRateVo">
+		SELECT COUNT(*) AS all_number,
+		COUNT(IF(`is_die`=1,1,NULL))AS death_number
+		FROM `epidemic_case` 
+		WHERE `illness_id`=(
+			SELECT `illness_id` FROM `epidemic_illness` WHERE `illness_name`=#{illness_name}
+		)
+    </select>
 
+	<select id="getRegionInfo" parameterType="java.lang.String" resultType="zstu.epidemic.cases.vo.RegionPatientCountVo">
+		SELECT infected_region_id AS region_id , COUNT(*) AS 'count'
+		FROM `epidemic_case` 
+		WHERE `illness_id`=(
+			SELECT `illness_id` FROM `epidemic_illness` WHERE `illness_name`=#{illness_name}
+		)
+		GROUP BY infected_region_id
+		ORDER BY region_id
+	</select>
+
+	<select id="getDiffTime" parameterType="java.lang.String" resultType="zstu.epidemic.cases.vo.DiffTimeVo">
+		SELECT DATEDIFF(cure_time,infect_time) AS diff_time,COUNT(*) AS cure_count
+		FROM `epidemic_case` 
+		WHERE `illness_id`=(
+			SELECT `illness_id` FROM `epidemic_illness` WHERE `illness_name`=#{illness_name}
+		) AND is_cure = 1
+		GROUP BY diff_time
+		ORDER BY diff_time
+	</select>
+
+	<select id="getPatientInfo" parameterType="java.lang.String" resultType="zstu.epidemic.cases.vo.PatientDataVo">
+		SELECT height,weight,fat,patient_age AS age
+		FROM `epidemic_patient` 
+		WHERE patient_id IN (
+			SELECT patient_id 
+			FROM `epidemic_case`
+			WHERE illness_id=(
+				SELECT `illness_id` FROM `epidemic_illness` WHERE `illness_name`=#{illness_name}
+			)
+		)
+	</select>
 
 
 </mapper>
