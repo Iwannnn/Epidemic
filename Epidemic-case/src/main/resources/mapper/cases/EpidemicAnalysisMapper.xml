@@ -133,4 +133,17 @@
 			)
 		)
 	</select>
+
+	<select id="getIllnessTrans" parameterType="java.lang.String" resultType="zstu.epidemic.cases.vo.IllnessTransVo">
+		SELECT transmission_id AS trans_id, transmission_name AS trans_name
+		FROM `epidemic_transmission`
+		WHERE transmission_id IN (
+			SELECT tran_id
+			FROM `epidemic_illness_trans`
+			WHERE infect_id = (
+				SELECT `illness_id` FROM `epidemic_illness` WHERE `illness_name`=#{illness_name}
+			)
+		)
+	</select>
+
 </mapper>
